@@ -1,0 +1,82 @@
+.nav{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 1.5em;
+    color: white;
+    min-width: 100vw;
+    overflow-x: hidden;
+}
+
+.nav .logo_section a{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+    color: white;
+    text-decoration: none;
+}
+
+.nav .logo_section a .logo_img{
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+}
+
+.nav div .nav_link{
+    --spacing: 1em;
+    text-decoration: none;
+    color: inherit;
+    display: inline-block;
+    padding: calc(var(--spacing) / 2) var(--spacing);
+    position: relative;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 0.9rem;
+}
+
+.nav div .nav_link:after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 1em;
+    right: 1em;
+    height: 2px;
+    background: currentColor;
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    transition: -webkit-transform 150ms ease-in-out;
+    transition: transform 150ms ease-in-out;
+    transition: transform 150ms ease-in-out, -webkit-transform 150ms ease-in-out;
+}
+  
+.nav div .nav_link:hover::after {
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+
+nav .sign_options{
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+nav .sign_options a{
+    color: white;
+    text-decoration: none;
+    border: 1.5px solid white;
+    border-radius: 2em;
+    margin-left: 1em;
+    transition: all 0.2s ease-in-out;
+    letter-spacing: 1px;
+    padding: 0.75em 1.5em;
+}
+
+nav .sign_options a:hover{
+    border: black;
+    color: black;
+    background: white;
+}

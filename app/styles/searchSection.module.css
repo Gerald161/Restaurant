@@ -1,0 +1,24 @@
+.main{
+    position: relative;
+    background: url("/food.jpg") no-repeat center/cover fixed; 
+    width: 100vw;
+    height: 90vh;
+    overflow-x: hidden;
+}
+
+.main .overlay{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    flex-direction: column;
+    color: white;
+    gap: 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.main .overlay form input{
+    padding: 6px 15px;
+}
