@@ -1,0 +1,29 @@
+.nav{
+    display: flex;
+    justify-content: space-between;
+}
+
+.nav button{
+    flex: 1;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.1s;
+    border: none;
+    border-bottom: solid 2px #ccc;
+}
+
+.nav button:hover{
+    border-bottom: solid 2px orangered;
+    background: #ccc;
+}
+  
+.nav button:focus{
+    background: white;
+    border-bottom: solid 2px #009579;
+}
+
+@media(max-width: 400px){
+    .nav{
+        overflow-x: scroll;
+    }
+}

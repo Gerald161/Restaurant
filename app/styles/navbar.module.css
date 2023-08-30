@@ -8,7 +8,7 @@
     justify-content: space-between;
     padding: 1em 1.5em;
     color: white;
-    min-width: 100vw;
+    min-width: 100%;
     overflow-x: hidden;
 }
 
@@ -79,4 +79,25 @@ nav .sign_options a:hover{
     border: black;
     color: black;
     background: white;
+}
+
+.nav svg{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: none;
+}
+
+@media(max-width: 800px){
+    nav .sign_options{
+        display: none;
+    }
+
+    .nav div .nav_link{
+        display: none;
+    }
+
+    .nav svg{
+        display: block;
+    }
 }

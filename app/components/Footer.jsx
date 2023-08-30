@@ -1,33 +1,40 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faYoutube, faTwitter, faInstagram } from "@fortawesome/free-brands-svg-icons";
-import Link from "next/link";
+import styles from "../styles/footer.module.css";
 
 export default function Footer() {
   return (
-    <footer>
-      <div class="foot">
-        <h2>Contact Us</h2>
-        {/* <a href="tel: +1245894738">Phone: +1245894738</a>
-        <a href="mailto: foodhub@gmail.com">Email: foodhub@gmail.com</a> */}
-      </div>
-      <div class="foot social_media">
-        <h2>Follow Us</h2>
-        <Link href="#">
-          <FontAwesomeIcon icon={faTwitter}/>
-        </Link>
-        <Link href="#">
-          <FontAwesomeIcon icon={faTwitter}/>
-        </Link>
-        <Link href="#">
-          <FontAwesomeIcon icon={faTwitter}/>
-        </Link>
-      </div>
-      <div class="foot">
-        <h2>Newsletter</h2>
-        {/* <input style="padding: 7px 6px; width: 250px;" type="text" placeholder="Enter your email" name=""/>
-        <a href="">Subscribe</a> */}
-      </div>
-    </footer>
+    <div>
+      <footer className={styles.footer}>
+        <div className={styles.foot}>
+          <h2>Contact Us</h2>
+          <a href="tel: +1245894738">Phone: +1245894738</a>
+          <a href="mailto: foodhub@gmail.com">Email: foodhub@gmail.com</a>
+        </div>
+        <div className={styles.foot}>
+          <h2>Follow Us</h2>
+          <a href="#">
+            <FontAwesomeIcon icon={faTwitter}/>
+          </a>
+          <a href="#">
+            <FontAwesomeIcon icon={faYoutube}/>
+          </a>
+          <a href="#">
+            <FontAwesomeIcon icon={faInstagram}/>
+          </a>
+        </div>
+        <div className={styles.foot}>
+          <h2>Newsletter</h2>
+
+          <div className={styles.newsletter}>
+            <input type="text" placeholder="Enter your email" name=""/>
+
+            <a href="#">Subscribe</a>
+          </div>
+        </div>
+      </footer>
+      <p className={styles.copyright}>Copyright FoodHub 2023 All rights reserved</p>
+    </div>
   )
 }
