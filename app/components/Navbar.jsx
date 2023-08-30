@@ -3,6 +3,9 @@ import styles from "../styles/navbar.module.css";
 import Link from "next/link";
 import Image from 'next/image';
 import Logo from "./logo.png";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faBars } from '@fortawesome/free-solid-svg-icons'
+
 
 export default function NavBar() {
   return (
@@ -36,6 +39,8 @@ export default function NavBar() {
         <Link href="#">Login</Link>
         <Link href="#">Join</Link>
       </div>
+
+      <FontAwesomeIcon icon={faBars} />
     </nav>
   )
 }

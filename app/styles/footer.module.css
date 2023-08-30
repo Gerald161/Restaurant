@@ -1,0 +1,57 @@
+.footer{
+    background: #333;
+    display: flex;
+    text-align: center;
+    color:white;
+    padding: 20px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer .foot{
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.footer .foot a{
+    color: white;
+    transition: all 0.5s;
+    text-decoration: none;
+}
+
+.footer .foot a:hover{
+    color: dodgerblue;
+}
+
+.footer .foot a svg{
+    width: 1.2em;
+    height: 1.2em;
+}
+
+.footer .foot .newsletter{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.footer .foot .newsletter input{
+    padding: 7px 6px; 
+    width: 250px;
+}
+
+.copyright{
+    text-align: center; 
+    margin: 15px 0;
+}
+
+@media(max-width: 900px){
+    .footer{
+        flex-direction: column;
+        gap: 30px;
+    }
+
+    .footer .foot:nth-child(3){
+        align-items: center;
+    }
+}
