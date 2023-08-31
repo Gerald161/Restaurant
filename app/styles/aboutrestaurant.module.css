@@ -1,0 +1,54 @@
+.main_about_container h1{
+    text-align: center;
+    margin: 15px;
+}
+
+.main_about_container .parallax{
+    position: relative;
+    height: 70vh;
+    width: 100%;
+}
+
+.main_about_container .parallax .cover_image{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.parallax .overlay{
+    position: absolute;
+    width: 100%;
+    height: 70vh;
+    display: flex;
+    color: white;
+    justify-content: center;
+    display: flex;
+}
+
+.parallax .overlay div{
+    flex: 1;
+    background: rgba(0,0,0,0.3);
+}
+  
+.parallax .overlay .popular_show_description{
+    background: rgba(0,0,0,0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+  
+.parallax .overlay .popular_show_description p, .popularShow .overlay .popular_show_description h2{
+    padding: 20px;  
+}
+
+@media(max-width:800px){
+    .main_about_container .parallax{
+        height: 50vh;
+    }
+    
+    .main_about_container .parallax .overlay{
+        height: 50vh;
+    }
+}
