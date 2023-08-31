@@ -4,8 +4,7 @@ import styles from "../../styles/mealresults.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Image from "next/image";
-import Logo from "../logo.png";
+import Image from "next/legacy/image";
 
 
 export default function MealResults() {

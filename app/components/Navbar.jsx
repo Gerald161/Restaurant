@@ -17,6 +17,7 @@ export default function NavBar() {
             alt="Restaurant Logo"
             placeholder="blur"
             className={styles.logo_img}
+            quality={30}
           />
 
           <p>Food Hub</p>
@@ -27,9 +28,9 @@ export default function NavBar() {
         <Link href="#" className={styles.nav_link}>
           Meal
         </Link>
-        <Link href="#" className={styles.nav_link}>
+        <a href="#diets" className={styles.nav_link}>
           Diets
-        </Link>
+        </a>
         <Link href="#" className={styles.nav_link}>
           Upload
         </Link>
