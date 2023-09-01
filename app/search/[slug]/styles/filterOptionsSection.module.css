@@ -1,0 +1,120 @@
+.filter_options_section{
+    flex: 3;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.filter_options_section form{
+    position: relative;
+    width: 90%;
+}
+
+.filter_options_section form .search_block input{
+    width: 100%;
+    padding: 10px 25px 10px 15px;
+    margin-top: 15px;
+}
+
+.filter_options_section form .search_block svg{
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    right: 5px;
+    top: 43%;
+    cursor: pointer;
+}
+
+.filter_options_section form .search_suggestions{
+    position: absolute;
+    margin-top: 1px;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    z-index: 3333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    border: solid 1px black;
+}
+
+.filter_options_section form .search_suggestions a{
+    text-decoration: none;
+    color: black;
+    transition: all 0.5s;
+    padding: 12px 15px;
+}
+
+.filter_options_section form .search_suggestions a:hover{
+    background: #ccc;
+}
+
+.filter_options_section h3{
+    color: #009579;
+}
+
+.filter_options_section .filter_section{
+    width: 100%;
+    flex: 7;
+}
+
+.filter_options_section .filter_section .filter_options_section_option{
+    display: flex;
+    padding: 15px;
+    justify-content: space-between;
+    cursor: pointer;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.6s;
+}
+
+.filter_options_section .filter_section .filter_options_section_option:hover{
+    color: #009579;
+    background: #ccc;
+}
+
+.filter_options_section .filter_section .filter_options_section_option:hover a{
+    color: #009579;
+}
+
+.filter_options_section .filter_section .filter_options_section_option .icon_and_text_container{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter_options_section .filter_section .filter_options_section_option .icon_and_text_container img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.filter_options_section .filter_section .filter_options_section_option a{
+    text-decoration: none;
+    color: black;
+    transition: all 0.6s;
+}
+
+.filter_options_section .apply_clear_options{
+    padding: 10px;
+    display: flex;
+    width: 100%;
+    flex: 1;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    border-top: solid 1px #ccc;
+}
+
+.filter_options_section .apply_clear_options button{
+    flex: 1;
+    padding: 15px 25px;
+    cursor: pointer;
+    transition: all 0.1s;
+    border: none;
+}
+
+.filter_options_section .apply_clear_options button:hover{
+    background: #ccc;
+}

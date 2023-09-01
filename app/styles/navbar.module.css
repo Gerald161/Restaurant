@@ -1,29 +1,13 @@
-.nav{
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1em 1.5em;
-    color: white;
-    min-width: 100%;
-    overflow-x: hidden;
-}
-
 .nav .logo_section a{
     display: flex;
     align-items: center;
     gap: 3px;
-    color: white;
     text-decoration: none;
 }
 
-.nav .logo_section a .logo_img{
+.nav .logo_section a .logo{
     width: 50px;
     height: 50px;
-    object-fit: cover;
 }
 
 .nav div .nav_link{
@@ -65,20 +49,12 @@ nav .sign_options{
 }
 
 nav .sign_options a{
-    color: white;
     text-decoration: none;
-    border: 1.5px solid white;
     border-radius: 2em;
     margin-left: 1em;
     transition: all 0.2s ease-in-out;
     letter-spacing: 1px;
     padding: 0.75em 1.5em;
-}
-
-nav .sign_options a:hover{
-    border: black;
-    color: black;
-    background: white;
 }
 
 .nav svg{
