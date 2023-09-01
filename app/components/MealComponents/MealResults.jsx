@@ -1,5 +1,3 @@
-// 'use client'
-
 import styles from "../../styles/mealresults.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -62,8 +60,8 @@ export default function MealResults() {
   return (
     <div className={styles.meal_results}>
         {
-            foods.map((food)=>{
-                return <div className={styles.meal_result}>
+            foods.map((food, index)=>{
+                return <div key={index} className={styles.meal_result}>
                     <Link href="#" className={styles.meal_result_image_container}>
                     <Image
                         src={`/food/${food["image"]}`}
@@ -72,7 +70,6 @@ export default function MealResults() {
                         objectFit="cover"
                         quality={30}
                         className={styles.meal_image}
-                        // onError={}
                     />
                     </Link>
                     <h4>{food["name"]}</h4>

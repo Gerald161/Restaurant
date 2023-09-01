@@ -1,8 +1,6 @@
 import React from 'react';
 import styles from "../styles/navbar.module.css";
 import Link from "next/link";
-import Image from 'next/image';
-import Logo from "./logo.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars } from '@fortawesome/free-solid-svg-icons'
 
@@ -12,26 +10,20 @@ export default function NavBar() {
     <nav className={styles.nav}>
       <div className={styles.logo_section}>
         <Link href="/">
-          <Image
-            src={Logo}
-            alt="Restaurant Logo"
-            placeholder="blur"
-            className={styles.logo_img}
-            quality={30}
-          />
+          <div className={styles.logo}></div>
 
           <p>Food Hub</p>
         </Link>
       </div>
 
-      <div>
-        <Link href="#" className={styles.nav_link}>
-          Meal
+      <div className='quick_nav'>
+        <Link href="/checkout" className={styles.nav_link}>
+          Checkout
         </Link>
         <a href="#diets" className={styles.nav_link}>
           Diets
         </a>
-        <Link href="#" className={styles.nav_link}>
+        <Link href="/upload" className={styles.nav_link}>
           Upload
         </Link>
       </div>

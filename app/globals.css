@@ -4,3 +4,26 @@
     box-sizing: border-box;
     scroll-behavior: smooth;
 }
+
+nav{
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1em 1.5em;
+    color: white;
+    min-width: 100%;
+    background-color: transparent;
+    overflow-x: hidden;
+}
+
+a{
+    color: white;
+}
+
+.children_container{
+    min-height: 52vh;
+}

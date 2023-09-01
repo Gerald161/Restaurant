@@ -1,0 +1,72 @@
+.filter_results_section{
+    flex: 7;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-left: solid 1px #ccc;
+    padding: 15px;
+}
+
+.filter_results_section .search_results{
+    display: grid;
+    gap: 5px;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-auto-rows: 240px;
+    grid-auto-flow: dense;
+    grid-row-gap: 20px;
+}
+
+.filter_results_section .search_results .search_result{
+    transition: all 0.8s;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-decoration: none;
+    color: black;
+}
+
+.filter_results_section .search_results .search_result .bottom_section{
+    display: flex;
+    justify-content: space-between;
+}
+
+.filter_results_section .search_results .search_result .bottom_section svg{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: all 0.5s;
+}
+
+.filter_results_section .search_results .search_result .bottom_section svg:hover{
+    color: dodgerblue;
+}
+
+.filter_results_section .search_results .search_result .search_result_image_container{
+    flex: 9;
+    position: relative;
+    background: url("/placeholder.png") no-repeat center/cover;
+    overflow: hidden;
+    transition: all 0.8s;
+}
+
+.filter_results_section .search_results .search_result .search_result_image_container img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: 1s;
+    object-fit: cover;
+}
+
+.filter_results_section .search_results .search_result .search_result_image_container:hover img{
+    transform: scale(1.2);
+}
+
+.filter_results_section .search_results .search_result h4{
+    flex: 1;
+    align-self: center;
+}
+
+.filter_results_section .search_results .search_result h4 span{
+    color: #009579;
+}

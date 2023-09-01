@@ -24,8 +24,26 @@
     align-items: center;
 }
 
+.main .overlay form{
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
 .main .overlay form input{
-    padding: 6px 15px;
+    padding: 8px 15px;
+}
+
+.main .overlay form button{
+    border: none;
+    background: transparent;
+}
+
+.main .overlay form button svg{
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    color: white;
 }
 
 @media(max-width: 900px){

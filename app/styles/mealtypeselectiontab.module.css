@@ -1,9 +1,9 @@
-.nav{
+.div{
     display: flex;
     justify-content: space-between;
 }
 
-.nav button{
+.div button{
     flex: 1;
     padding: 15px 25px;
     cursor: pointer;
@@ -12,18 +12,18 @@
     border-bottom: solid 2px #ccc;
 }
 
-.nav button:hover{
+.div button:hover{
     border-bottom: solid 2px orangered;
     background: #ccc;
 }
   
-.nav button:focus{
+.div button:focus{
     background: white;
     border-bottom: solid 2px #009579;
 }
 
 @media(max-width: 400px){
-    .nav{
+    .div{
         overflow-x: scroll;
     }
 }
