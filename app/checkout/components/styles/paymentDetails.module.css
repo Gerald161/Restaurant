@@ -1,0 +1,76 @@
+.payment{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    padding: 1.5em 1.2em;
+}
+
+.payment .payment_choice{
+    display: flex;
+    gap: 20px;
+    justify-content: space-between;
+}
+
+.payment .payment_choice .option{
+    flex: 1;
+    border: solid 1px black;
+    border-radius: 5px;
+    display: flex;
+    padding: 10px 15px;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.payment .payment_choice .option input{
+    cursor: pointer;
+}
+
+.payment .payment_choice .option .option_description{
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.payment .card_information{
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.payment .card_information .card_user_info{
+    flex: 1;
+}
+
+.payment .card_information .card_user_info input{
+    width: 100%;
+    padding: 10px 12px;
+    margin-top: 10px;
+}
+
+.payment .card_information .card_user_info .expiration_section{
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.payment .card_information .card_user_info .expiration_section input{
+    flex: 1;
+}
+
+.payment_button{
+    padding: 10px 12px;
+    color: #009579;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+@media(max-width: 800px){
+    .payment{
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        padding: 0.5em 1.2em;
+    }
+}

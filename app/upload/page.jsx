@@ -64,22 +64,22 @@ export default function Upload() {
         {
             `
             nav{
-                position: relative;
+              position: relative;
             }
 
             nav div:nth-child(1) a div{
-                background: url("/logo2.png") no-repeat center/cover;
+              background: url("/logo2.png") no-repeat center/cover;
             }
 
             nav div:nth-child(3) a{
-                border: 1.5px solid black;
-              }
+              border: 1.5px solid black;
+            }
     
-              nav div:nth-child(3) a:hover{
-                border: white;
-                color: white;
-                background: black;
-              }
+            nav div:nth-child(3) a:hover{
+              border: white;
+              color: white;
+              background: black;
+            }
 
             nav svg{
               color: black;
