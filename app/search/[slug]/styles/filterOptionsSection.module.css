@@ -118,3 +118,9 @@
 .filter_options_section .apply_clear_options button:hover{
     background: #ccc;
 }
+
+@media(max-width: 800px){
+    .filter_options_section h3, .filter_options_section .filter_section .filter_options_section_option, .filter_options_section .apply_clear_options{
+        display: none;
+    }
+}

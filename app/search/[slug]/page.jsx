@@ -49,6 +49,12 @@ export default function SearchResultsPage({params}) {
                     border-top: solid 1px #ccc;
                     margin-bottom: 5px;
                 }
+
+                @media(max-width: 800px){
+                    .main{
+                        flex-direction: column;
+                    }
+                }
                 `
             }
             </style>

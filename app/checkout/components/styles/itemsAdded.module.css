@@ -1,0 +1,54 @@
+.items_added{
+    flex: 1;
+    display: flex;
+    padding: 1em 1.2em;
+    flex-direction: column;
+    gap: 30px;
+}
+  
+.items_added .all_orders{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+  
+.items_added .all_orders .item_ordered{
+    display: flex;
+    justify-content: space-between;
+}
+  
+.items_added .all_orders .item_ordered svg{
+    cursor: pointer;
+    color: red;
+    width: 23px;
+    height: 23px;
+}
+  
+.items_added .all_orders .item_ordered .image_and_details_container{
+    display: flex;
+    gap: 7px;
+}
+  
+.items_added .all_orders .item_ordered .image_and_details_container img{
+    padding: 5px;  
+    height: 100px; 
+    width: 100px; 
+    border-radius: 20px; 
+    object-fit: cover;
+}
+  
+.items_added .all_orders .item_ordered .image_and_details_container .item_details{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+  
+.items_added .all_orders .item_ordered .image_and_details_container .item_details .price_calculator_container{
+    display: flex;
+    gap: 10px;
+}
+  
+.items_added .all_orders .item_ordered .image_and_details_container .item_details .price_calculator_container input{
+    width: 50px;
+    text-align: center;
+}

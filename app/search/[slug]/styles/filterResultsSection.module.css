@@ -70,3 +70,14 @@
 .filter_results_section .search_results .search_result h4 span{
     color: #009579;
 }
+
+@media(max-width: 800px){
+    .filter_results_section .search_results{
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        grid-auto-rows: 200px;
+    }
+
+    .filter_results_section h3{
+        text-align: center;
+    }
+}

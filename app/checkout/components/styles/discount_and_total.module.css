@@ -1,0 +1,93 @@
+  
+.discount_and_total{
+    flex: 1;
+    border-left: solid 1px #ccc;
+}
+  
+.discount_and_total .discounts{
+    display: flex;
+    gap: 15px;
+    flex-direction: column;
+    border-bottom: solid 1px #ccc;
+    padding: 1em 1.2em;
+}
+  
+.discount_and_total .discounts .address_container{
+    position: relative;
+}
+  
+.discount_and_total .discounts .address_container .delivery_address_section .delivery_address{
+    width: 96%;  
+    padding: 10px 25px 10px 15px;
+}
+  
+.discount_and_total .discounts .address_container .delivery_address_section svg{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 17%;
+    right: 30px;
+    cursor: pointer;
+}
+  
+.discount_and_total .discounts .address_container .address_suggestions{
+    position: absolute;
+    margin-top: 1px;
+    width: 96%;
+    background: white;
+    border-radius: 10px;
+    z-index: 3333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* border: solid 1px black; */
+}
+  
+.discount_and_total .discounts .address_container .address_suggestions a{
+    text-decoration: none;
+    color: black;
+    transition: all 0.5s;
+    padding: 12px 15px;
+}
+  
+.discount_and_total .discounts .address_container .address_suggestions a:hover{
+    background: #ccc;
+}
+
+.discount_and_total .discounts .discount_code_container{
+    display: flex;
+    gap: 5px;
+}
+  
+.discount_and_total .discounts .discount_code_container input{
+    padding: 10px 12px;
+}
+  
+.discount_and_total .discounts .discount_code_container button{
+    padding: 10px 25px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+  
+.discount_and_total .total{
+    padding: 1em 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+  
+.discount_and_total .total .total_item_and_description{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+  
+.discount_and_total .total .total_item_and_description:nth-child(4){
+    font-weight: bold;
+}
+
+@media(max-width: 800px){
+    .discount_and_total .discounts{
+        border-top: solid 1px #ccc;
+    }
+}

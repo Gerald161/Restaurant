@@ -1,32 +1,43 @@
 "use client"
 
 import React from 'react';
+import Image from "next/image";
+import styles from "./style.module.css";
+import Pic from "./Images/6.png";
+import OrderSummary from './components/OrderSummary';
+import PaymentDetails from './components/PaymentDetails';
 
 export default function page() {
   return (
     <div>
-        Checkout Page
+        <div className={styles.order_icon_container}>
+          <Image
+            src={Pic}
+            alt="Food Image"
+            quality={30}
+          />
+
+          <h3>All Orders</h3>
+        </div>
+
+        <OrderSummary/>
+
+        <PaymentDetails/>
         
         <style jsx global>
         {
             `
             nav{
-                position: relative;
+              position: relative;
             }
 
             nav div:nth-child(1) a div{
-                background: url("/logo2.png") no-repeat center/cover;
+              background: url("/logo2.png") no-repeat center/cover;
             }
 
             nav div:nth-child(3) a{
-                border: 1.5px solid black;
-              }
-    
-              nav div:nth-child(3) a:hover{
-                border: white;
-                color: white;
-                background: black;
-              }
+              display: none;
+            }
 
             nav svg{
               color: black;
