@@ -32,7 +32,7 @@ export default function MealResults() {
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
     },
     {
-        name: "Choco Cake",
+        name: "Chocolate",
         price: "6$",
         image: "5.jpg",
         description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
@@ -62,7 +62,7 @@ export default function MealResults() {
         {
             foods.map((food, index)=>{
                 return <div key={index} className={styles.meal_result}>
-                    <Link href="#" className={styles.meal_result_image_container}>
+                    <Link href={`/food/${food.name.toLowerCase()}`} className={styles.meal_result_image_container}>
                     <Image
                         src={`/food/${food["image"]}`}
                         alt="Food Image"
