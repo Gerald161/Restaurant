@@ -29,8 +29,8 @@ export default function NavBar() {
       </div>
 
       <div className={styles.sign_options}>
-        <Link href="#">Login</Link>
-        <Link href="#">Join</Link>
+        <Link href="/login">Login</Link>
+        <Link href="/signup">Join</Link>
       </div>
 
       <FontAwesomeIcon icon={faBars} />
