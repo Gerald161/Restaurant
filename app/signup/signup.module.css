@@ -1,0 +1,102 @@
+.main{
+    padding: 100px 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.main img{
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.main form{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.main form input{
+    min-width: 270px;
+    padding: 14px 17px;
+    border: none;
+    border: solid 1px #ccc;
+    border-radius: 3px;
+}
+
+.main form input:focus{
+    outline-color: dodgerblue;  
+}
+
+.main form button{
+    min-width: 270px;
+    padding: 14px 17px;
+    border-radius: 3px;
+    color: white;
+    cursor: pointer;
+    font-size: 1.1em;
+    border: none;
+    position: relative;
+    background: transparent;
+}
+
+.main form button::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 3px;
+    background-color: #009579;
+    z-index: -1;
+    transition: filter 0.3s;
+}
+
+.main form button:hover::before{
+    filter: brightness(0.9);
+}
+
+.main p a{
+    color: #009579;
+    text-decoration: none;
+}
+
+.main .google_sign_up{
+    min-width: 270px;
+    padding: 14px 17px;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 1.1em;
+    border: none;
+    border: solid 1px #ccc;
+    position: relative;
+    background: transparent;
+
+    /*Actual Design Stuff*/
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    font-size: 1em;
+}
+
+.main .google_sign_up img{
+    width: 30px;
+    height: 30px;
+    object-fit: cover;
+}
+
+.main .google_sign_up:hover{
+    background: #ccc;
+}
+
+@media(max-width: 800px){
+    .main{
+        padding: 50px 70px;
+    }
+}
