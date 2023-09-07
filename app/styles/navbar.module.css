@@ -42,13 +42,13 @@
     transform: scaleX(1);
 }
 
-nav .sign_options{
+.nav .sign_options{
     display: flex;
     align-items: center;
     gap: 3px;
 }
 
-nav .sign_options a{
+.nav .sign_options a{
     text-decoration: none;
     border-radius: 2em;
     margin-left: 1em;

@@ -1,55 +1,105 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from "../signup/signup.module.css";
 import Link from 'next/link';
 import Image from "next/image";
-import GoogleImage from "../signup/Icons/google.png";
 import LogoImage from "../signup//Icons/logo.png";
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 export default function Login() {
-  return (
-    <main className={styles.main}>
-      <Image
-          src={LogoImage}
-          alt="Google Image"
-          placeholder="blur"
-          quality={40}
-      />
+    const router = useRouter();
 
-      <h1>Welcome Back</h1>
+    function handleCallbackResponse(response){
+        // console.log(`Encoded JWT ID token: ${response.credential}`)
 
-      <form method="post" action="#">
-          <input type="text" name="" placeholder="Email or username"/>
+        var userObject = jwtDecode(response.credential);
 
-          <button>Continue</button>	
-      </form>
+        console.log(userObject)
 
-      <p>Don't have an account? <Link href="/signup">Sign up</Link></p>
+        router.push(`/`);
+    }
 
-      <h4>OR</h4>
+    function initializeSignOptions(){
+        console.log('Google script has loaded.');
+        
+        /* global google */
+        google.accounts.id.initialize({
+            client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+            callback: handleCallbackResponse
+        });
 
-      <button className={styles.google_sign_up}>
-          <Image
-              src={GoogleImage}
-              alt="Google Image"
-              placeholder="blur"
-              quality={40}
-          />
-          <span>Continue with Google</span>
-      </button>
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            { theme: "outline", size: "large" }
+        );
 
-      <p><a href="#">Terms and agreements</a></p>
+        google.accounts.id.prompt();
+    }
 
-      <style jsx global>
-          {
-              `
-              nav{
-                  display: none;
-              }
-              `
-          }
-      </style>
-    </main>
-  )
+    useEffect(()=>{
+        // Define a function to load the Google Identity Services API script
+        function loadGoogleScript() {
+            const script = document.createElement('script');
+
+            script.src = 'https://accounts.google.com/gsi/client';
+
+            script.async = true;
+            
+            script.onload = () => {
+                // The script has loaded, now you can use the 'google' object
+                initializeSignOptions();
+            };
+            document.head.appendChild(script);
+        }
+    
+        // Check if 'google' is already defined
+        if (typeof google === 'undefined') {
+            // Load the Google Identity Services API script dynamically
+            loadGoogleScript();
+        } else {
+            // 'google' is already defined, you can use it immediately
+            console.log("Google is already defined.");
+
+            initializeSignOptions();
+        }
+    }, [])
+
+    return (
+        <main className={styles.main}>
+            <Image
+                src={LogoImage}
+                alt="Google Image"
+                placeholder="blur"
+                quality={40}
+            />
+
+            <h1>Welcome Back</h1>
+
+            <form method="post" action="#">
+                <input type="text" name="" placeholder="Email or username"/>
+
+                <button>Continue</button>	
+            </form>
+
+            <p>Don't have an account? <Link href="/signup">Sign up</Link></p>
+
+            <h4>OR</h4>
+
+            <div id='signInDiv'></div>
+
+            <p><a href="#">Terms and agreements</a></p>
+
+            <style jsx global>
+                {
+                    `
+                    nav{
+                        display: none;
+                    }
+                    `
+                }
+            </style>
+        </main>
+    )
 }

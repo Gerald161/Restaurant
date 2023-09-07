@@ -1,57 +1,107 @@
 "use client";
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from "./signup.module.css";
 import Image from "next/image";
-import GoogleImage from "./Icons/google.png";
 import LogoImage from "./Icons/logo.png";
 import Link from 'next/link';
+import jwtDecode from 'jwt-decode';
+import { useRouter } from 'next/navigation';
 
 export default function SignUp() {
-  return (
-    <main className={styles.main}>
-        <Image
-            src={LogoImage}
-            alt="Google Image"
-            placeholder="blur"
-            quality={40}
-        />
+    const router = useRouter();
 
-        <h1>Create your account</h1>
+    function handleCallbackResponse(response){
+        // console.log(`Encoded JWT ID token: ${response.credential}`)
 
-        <form method="post" action="#">
-            <input type="text" name="" placeholder="Email"/>
+        var userObject = jwtDecode(response.credential);
 
-            <input type="text" name="" placeholder="Username"/>
+        console.log(userObject)
 
-            <button>Continue</button>	
-        </form>
+        router.push(`/`);
+    }
 
-        <p>Already have an account? <Link href="/login">Log in</Link></p>
+    function initializeSignOptions(){
+        console.log('Google script has loaded.');
+        
+        /* global google */
+        google.accounts.id.initialize({
+            client_id: process.env.NEXT_PUBLIC_CLIENT_ID,
+            callback: handleCallbackResponse
+        });
 
-        <h4>OR</h4>
+        google.accounts.id.renderButton(
+            document.getElementById("signInDiv"),
+            { theme: "outline", size: "large" }
+        );
 
-        <button className={styles.google_sign_up}>
+        google.accounts.id.prompt();
+    }
+
+    useEffect(()=>{
+        // Define a function to load the Google Identity Services API script
+        function loadGoogleScript() {
+            const script = document.createElement('script');
+
+            script.src = 'https://accounts.google.com/gsi/client';
+
+            script.async = true;
+            
+            script.onload = () => {
+                // The script has loaded, now you can use the 'google' object
+                initializeSignOptions()
+            };
+            document.head.appendChild(script);
+        }
+    
+        // Check if 'google' is already defined
+        if (typeof google === 'undefined') {
+            // Load the Google Identity Services API script dynamically
+            loadGoogleScript();
+        } else {
+            // 'google' is already defined, you can use it immediately
+            console.log("Google is already defined.");
+
+            initializeSignOptions();
+        }
+    }, [])
+
+    return (
+        <main className={styles.main}>
             <Image
-                src={GoogleImage}
+                src={LogoImage}
                 alt="Google Image"
                 placeholder="blur"
                 quality={40}
             />
-            <span>Continue with Google</span>
-        </button>
 
-        <p><a href="#">Terms and agreements</a></p>
+            <h1>Create your account</h1>
 
-        <style jsx global>
-            {
-                `
-                nav{
-                    display: none;
+            <form method="post" action="#">
+                <input type="text" name="" placeholder="Email"/>
+
+                <input type="text" name="" placeholder="Username"/>
+
+                <button>Continue</button>	
+            </form>
+
+            <p>Already have an account? <Link href="/login">Log in</Link></p>
+
+            <h4>OR</h4>
+
+            <div id='signInDiv'></div>
+
+            <p><a href="#">Terms and agreements</a></p>
+
+            <style jsx global>
+                {
+                    `
+                    nav{
+                        display: none;
+                    }
+                    `
                 }
-                `
-            }
-        </style>
-    </main>
-  )
+            </style>
+        </main>
+    )
 }
