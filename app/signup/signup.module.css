@@ -67,34 +67,6 @@
     text-decoration: none;
 }
 
-.main .google_sign_up{
-    min-width: 270px;
-    padding: 14px 17px;
-    border-radius: 3px;
-    cursor: pointer;
-    font-size: 1.1em;
-    border: none;
-    border: solid 1px #ccc;
-    position: relative;
-    background: transparent;
-
-    /*Actual Design Stuff*/
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    font-size: 1em;
-}
-
-.main .google_sign_up img{
-    width: 30px;
-    height: 30px;
-    object-fit: cover;
-}
-
-.main .google_sign_up:hover{
-    background: #ccc;
-}
-
 @media(max-width: 800px){
     .main{
         padding: 50px 70px;

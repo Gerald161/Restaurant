@@ -15,10 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <NavBar/>
-        <div className='children_container'>
-          {children}
-        </div>
-        <Footer/>
+          <div className='children_container'>
+            {children}
+          </div>
+          <Footer/>
       </body>
     </html>
   )
