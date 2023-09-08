@@ -16,7 +16,17 @@ export default function Login() {
 
         var userObject = jwtDecode(response.credential);
 
-        console.log(userObject)
+        console.log(userObject);
+
+        // localStorage.setItem("token", JSON.stringify({"userToken": data["token"]}));
+
+        localStorage.setItem("username", JSON.stringify({"username": userObject.given_name}));
+
+        localStorage.setItem("email", JSON.stringify({"email": userObject.email}));
+
+        localStorage.setItem("profile_image", JSON.stringify({"profile_image": userObject.picture}));
+
+        router.refresh();
 
         router.push(`/`);
     }
