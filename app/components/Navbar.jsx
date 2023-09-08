@@ -1,12 +1,47 @@
 "use client"
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "../styles/navbar.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRightFromBracket, faGear } from '@fortawesome/free-solid-svg-icons';
+import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 export default function NavBar() {
+  const pathName = usePathname();
+
+  const [profileTabVisibility, setProfileTabVisibility] = useState(false);
+
+  const [profileImageUrl, setProfileImageUrl] = useState("");
+
+  const [optionsVisibility, setOptionsVisibility] = useState(false);
+
+  useEffect(()=>{
+    var username = localStorage.getItem("username");
+
+    var profile_image = localStorage.getItem("profile_image");
+
+    setProfileImageUrl(JSON.parse(profile_image)["profile_image"]);
+
+    if(username !== null){
+      setProfileTabVisibility(true);
+
+      //Making sure the toggle of the visibility is always negative
+      setOptionsVisibility(false);
+    }else{
+      setProfileTabVisibility(false);
+    }
+
+  }, [pathName])
+
+  function showMoreOptions(){
+    if(optionsVisibility){
+      setOptionsVisibility(false);
+    }else{
+      setOptionsVisibility(true);
+    }
+  }
 
   return (
     <nav className={styles.nav}>
@@ -30,12 +65,38 @@ export default function NavBar() {
         </Link>
       </div>
 
-      <div className={styles.sign_options}>
-        <Link href="/login">Login</Link>
-        <Link href="/signup">Join</Link>
-      </div>
+      {
+        profileTabVisibility == false ?
+        <div className={styles.sign_options}>
+          <Link href="/login">Login</Link>
+          <Link href="/signup">Join</Link>
+        </div> :
+        <div className={styles.profile_tab_container}>
+          <div className={styles.image_container} onClick={()=>{showMoreOptions()}}>
+            <Image
+              src={profileImageUrl}
+              alt='Profile Image'
+              height={100}
+              width={100}
+            />
+          </div>
 
-      <FontAwesomeIcon icon={faBars} />
+          <div className={optionsVisibility == true ? styles.profile_options : styles.no_element_visibility}>
+            <div className={styles.option}>
+              <p className={styles.label}>Settings</p>
+              <FontAwesomeIcon icon={faGear}/>
+            </div>
+            <div className={styles.option}>
+              <p className={styles.label}>Log out</p>
+              <FontAwesomeIcon icon={faRightFromBracket}/>
+            </div>
+          </div>
+        </div>
+      }
+
+      <div className={styles.more_button}>
+        <FontAwesomeIcon icon={faBars}/>
+      </div>
     </nav>
   )
 }

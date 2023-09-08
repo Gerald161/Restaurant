@@ -57,11 +57,79 @@
     padding: 0.75em 1.5em;
 }
 
-.nav svg{
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
+.nav .more_button{
     display: none;
+}
+
+.nav .more_button svg{
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+}
+
+.nav .profile_tab_container{
+    position: relative;
+}
+
+.nav .profile_tab_container .image_container{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    border-radius: 100%;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.nav .profile_tab_container .image_container img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.nav .profile_tab_container .profile_options{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+    position: absolute;
+    min-width: 100%;
+    padding: 15px 0;
+    justify-content: center;
+}
+
+.nav .profile_tab_container .profile_options .option{
+    position: relative;
+}
+
+.nav .profile_tab_container .profile_options .option p{
+    position: absolute;
+    right: 0;
+    width: 90px;
+    z-index: -1;
+}
+
+.nav .profile_tab_container .profile_options .option svg{
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease-in;
+}
+
+.nav .profile_tab_container .profile_options .option svg:hover{
+    color: dodgerblue;
+}
+
+.label{
+    display: none;
+    transition: all 0.5s;
+}
+
+.no_element_visibility{
+    display: none;
+}
+
+.nav .profile_tab_container .profile_options .option:hover .label{
+   display: block;
 }
 
 @media(max-width: 800px){
@@ -73,7 +141,15 @@
         display: none;
     }
 
-    .nav svg{
+    .nav .sign_options{
+        display: none;
+    }
+
+    .nav .more_button{
         display: block;
+    }
+
+    .nav .profile_tab_container{
+        display: none;
     }
 }

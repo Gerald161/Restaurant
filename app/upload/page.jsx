@@ -1,6 +1,6 @@
 "use client"
 
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import styles from "./styles/upload.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -9,6 +9,36 @@ import TestImg from "./3.jpg";
 import Image from "next/image";
 
 export default function Upload() {
+  const [ingredientList, setIngredientList] = useState([""]);
+
+  const [extraImagesList, setExtraImagesList] = useState([1]);
+
+  const [thumbnailUrl, setThumbnailUrl] = useState("");
+
+  const thumbnailInputRef = useRef();
+
+  function addExtraIngredient(e){
+    e.preventDefault();
+
+    setIngredientList([...ingredientList, ""])
+  }
+
+  function selectThumbnail(e){
+    if(thumbnailInputRef.current.files.length){
+      const file = thumbnailInputRef.current.files[0];
+
+      if(file.type.startsWith("image/")){
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          setThumbnailUrl(reader.result);
+        }
+      }
+    }
+  }
+
   return (
     <form className={styles.form}>
       <h3>Please upload your dish</h3>
@@ -20,34 +50,48 @@ export default function Upload() {
       <label>Dish Thumbnail</label>
 
       <label htmlFor="thumbnail">
-        <FontAwesomeIcon icon={faImage} />
-        {/* <img class="thumbnail_image_placeholder" alt="Thumbnail"/> */}
+        {
+          thumbnailUrl == "" ? 
+          <FontAwesomeIcon icon={faImage} /> :
+          
+          <Image
+            src={TestImg}
+            alt="Food Image"
+            quality={30}
+          />
+        }
       </label>
 
-      <input id="thumbnail" type="file" accept="image/*" name=""></input>
+      <input ref={thumbnailInputRef} onChange={(e)=>{selectThumbnail(e)}} id="thumbnail" type="file" accept="image/*" name=""/>
 
       <label>Ingredients</label>
 
       <ol>
-        <li><input type="text" placeholder="Name of ingredient" name=""/></li>
-        <li><input type="text" placeholder="Name of ingredient" name=""/></li>
-        <li><input type="text" placeholder="Name of ingredient" name=""/></li>
+        {
+          ingredientList.map((ingredient, index)=>(
+            <li key={index}><input type="text" placeholder="Name of ingredient" name=""/></li>
+          ))
+        }
       </ol>
 
-      <button>Add Ingredient <FontAwesomeIcon icon={faPlus} /></button>
+      <button onClick={(e)=>{addExtraIngredient(e)}}>Add Ingredient <FontAwesomeIcon icon={faPlus} /></button>
 
       <label>Additional Images</label>
 
       <div className={styles.selected_images_container}>
-        <div className={styles.selected_image}>
-            <Image
+        {
+          extraImagesList.map((extra_image, index)=>(
+            <div key={index} className={styles.selected_image}>
+              <Image
                 src={TestImg}
                 alt="Food Image"
                 quality={30}
-            />
+              />
 
-            <FontAwesomeIcon icon={faXmark} />
-        </div>
+              <FontAwesomeIcon icon={faXmark} />
+          </div>
+          ))
+        }
       </div>
 
       <label htmlFor="extra_image">
@@ -58,13 +102,14 @@ export default function Upload() {
         />
       </label>
 
-      <input id="extra_image" type="file" accept="image/*" name=""></input>
+      <input id="extra_image" type="file" accept="image/*" name=""/>
 
       <style jsx global>
         {
             `
             nav{
               position: relative;
+              color: black;
             }
 
             nav div:nth-child(1) a div{

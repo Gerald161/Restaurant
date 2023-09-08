@@ -19,6 +19,7 @@ export default function FoodPage({params}) {
                     `
                     nav{
                         position: relative;
+                        color: black;
                     }
 
                     nav div:nth-child(1) a div{
