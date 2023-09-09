@@ -5,27 +5,16 @@ import styles from "./styles/upload.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faImage, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import AddExtra from "./add_extra.png";
-import TestImg from "./3.jpg";
 import Image from "next/image";
 
 export default function Upload() {
-  const [ingredientList, setIngredientList] = useState([""]);
-
-  const [extraImagesList, setExtraImagesList] = useState([1]);
+  const [extraImagesList, setExtraImagesList] = useState([]);
 
   const [thumbnailUrl, setThumbnailUrl] = useState("");
 
-  const thumbnailInputRef = useRef();
-
-  function addExtraIngredient(e){
-    e.preventDefault();
-
-    setIngredientList([...ingredientList, ""])
-  }
-
   function selectThumbnail(e){
-    if(thumbnailInputRef.current.files.length){
-      const file = thumbnailInputRef.current.files[0];
+    if(e.target.files.length){
+      const file = e.target.files[0];
 
       if(file.type.startsWith("image/")){
         const reader = new FileReader();
@@ -39,6 +28,30 @@ export default function Upload() {
     }
   }
 
+  function addExtraImage(e){
+    if(e.target.files.length){
+      const file = e.target.files[0];
+
+      if(file.type.startsWith("image/")){
+        const reader = new FileReader();
+
+        reader.readAsDataURL(file);
+
+        reader.onload = () => {
+          setExtraImagesList([...extraImagesList, reader.result]);
+        }
+      }
+    }
+  }
+
+  function removeExtraImage(index){
+    const updatedImages = [...extraImagesList];
+
+    updatedImages.splice(index, 1);
+
+    setExtraImagesList(updatedImages);
+  }
+
   return (
     <form className={styles.form}>
       <h3>Please upload your dish</h3>
@@ -47,34 +60,26 @@ export default function Upload() {
 
       <input type="text" placeholder="Dish Name" name=""/>
 
+      <label htmlFor="">Category</label>
+
+      <select className={styles.select} name="" id="">
+        <option value="">Breakfast</option>
+        <option value="">Lunch</option>
+        <option value="">Supper</option>
+        <option value="">Snacks</option>
+      </select>
+
       <label>Dish Thumbnail</label>
 
       <label htmlFor="thumbnail">
         {
           thumbnailUrl == "" ? 
           <FontAwesomeIcon icon={faImage} /> :
-          
-          <Image
-            src={TestImg}
-            alt="Food Image"
-            quality={30}
-          />
+          <img src={thumbnailUrl} alt="Thumbnail Image"/>
         }
       </label>
 
-      <input ref={thumbnailInputRef} onChange={(e)=>{selectThumbnail(e)}} id="thumbnail" type="file" accept="image/*" name=""/>
-
-      <label>Ingredients</label>
-
-      <ol>
-        {
-          ingredientList.map((ingredient, index)=>(
-            <li key={index}><input type="text" placeholder="Name of ingredient" name=""/></li>
-          ))
-        }
-      </ol>
-
-      <button onClick={(e)=>{addExtraIngredient(e)}}>Add Ingredient <FontAwesomeIcon icon={faPlus} /></button>
+      <input onChange={(e)=>{selectThumbnail(e)}} id="thumbnail" type="file" accept="image/*" name=""/>
 
       <label>Additional Images</label>
 
@@ -82,27 +87,29 @@ export default function Upload() {
         {
           extraImagesList.map((extra_image, index)=>(
             <div key={index} className={styles.selected_image}>
-              <Image
-                src={TestImg}
-                alt="Food Image"
-                quality={30}
-              />
+              <img src={extra_image} alt="Food Image"/>
 
-              <FontAwesomeIcon icon={faXmark} />
+              <FontAwesomeIcon icon={faXmark} onClick={()=>{removeExtraImage(index)}} />
           </div>
           ))
         }
       </div>
 
-      <label htmlFor="extra_image">
-        <Image
-            src={AddExtra}
-            alt="Add Extra Image"
-            quality={30}
-        />
-      </label>
+      {
+        extraImagesList.length < 5 &&
+        <label htmlFor="extra_image">
+          <Image
+              src={AddExtra}
+              alt="Add Extra Image"
+              quality={30}
+              className={styles.extra_button}
+          />
+        </label>
+      }
 
-      <input id="extra_image" type="file" accept="image/*" name=""/>
+      <input onChange={(e)=>{addExtraImage(e)}} id="extra_image" type="file" accept="image/*" name=""/>
+
+      <button>Upload</button>
 
       <style jsx global>
         {
