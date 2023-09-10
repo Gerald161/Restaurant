@@ -1,9 +1,9 @@
 "use client"
 
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import styles from "./styles/upload.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faImage, faXmark } from '@fortawesome/free-solid-svg-icons';
 import AddExtra from "./add_extra.png";
 import Image from "next/image";
 
@@ -11,6 +11,8 @@ export default function Upload() {
   const [extraImagesList, setExtraImagesList] = useState([]);
 
   const [thumbnailUrl, setThumbnailUrl] = useState("");
+
+  const [price, setPrice] = useState(1);
 
   function selectThumbnail(e){
     if(e.target.files.length){
@@ -66,8 +68,16 @@ export default function Upload() {
         <option value="">Breakfast</option>
         <option value="">Lunch</option>
         <option value="">Supper</option>
+        <option value="">Drinks</option>
         <option value="">Snacks</option>
       </select>
+
+      <label>Dish Price</label>
+
+      <div className={styles.pricing}>
+        <input type="number" value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder='Price'/> 
+        <span>$</span>
+      </div>
 
       <label>Dish Thumbnail</label>
 
