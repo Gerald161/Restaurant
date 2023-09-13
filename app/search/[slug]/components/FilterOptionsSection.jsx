@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import firstImage from "./icons/1.png";
 import secondImage from "./icons/2.png";
 import thirdImage from "./icons/3.png";
-import fourthImage from "./icons/4.png";
+import fourthImage from "./icons/price.png";
 import fifthImage from "./icons/5.png";
 import Link from 'next/link';
 
@@ -30,7 +30,7 @@ export default function FilterOptionsSection() {
       {
         img_src: fourthImage,
         img_alt: "fourth Image",
-        name: "Time",
+        name: "Price",
       },
       {
         img_src: fifthImage,
