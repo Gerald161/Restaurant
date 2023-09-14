@@ -12,13 +12,26 @@ import { useState } from "react";
 export default function MealResults({data}){
     const [allFoods, setAllFoods] = useState(data);
 
+    const mealChoices = ["Breakfast", "Lunch", "Supper", "Drinks"];
+
+    async function changeMealCategory(meal){
+        const res = await fetch(
+            `${process.env.NEXT_PUBLIC_API}food/category/${meal}`
+        );
+
+        const data = await res.json();
+
+        setAllFoods(data);
+    }
+
     return (
         <div>
             <div className={styles2.div}>
-                <button data-id="breakfast">Breakfast</button>
-                <button data-id="lunch">Lunch</button>
-                <button data-id="supper">Supper</button>
-                <button data-id="drink">Drinks</button>
+                {
+                    mealChoices.map((meal, index)=>(
+                        <button key={index} onClick={(e)=>{changeMealCategory(meal)}}>{meal}</button>
+                    ))
+                }
             </div>
 
             <div className={styles.meal_results}>
