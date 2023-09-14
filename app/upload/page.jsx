@@ -57,7 +57,7 @@ export default function Upload() {
 
     var myHeaders = new Headers();
 
-    myHeaders.append("Token", "e85a5c63b0cf7c7f8031e9d113fa0fd5680e6072");
+    myHeaders.append("Token", process.env.TOKEN);
 
     var formdata = new FormData();
 
