@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import AddExtra from "./add_extra.png";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 export default function Upload() {
   const [extraImagesList, setExtraImagesList] = useState([]);
@@ -19,6 +20,8 @@ export default function Upload() {
   const [category, setCategory] = useState("breakfast");
 
   const mealChoices = ["Breakfast", "Lunch", "Supper", "Drinks"];
+
+  const router = useRouter();
 
   function addExtraImage(e){
     if(e.target.files.length){
@@ -81,7 +84,11 @@ export default function Upload() {
 
     var data = await res.json();
 
-    console.log(data);
+    if(data["status"] == "complete"){
+      router.refresh();
+
+      router.push(`/`);
+    }
   }
 
   return (

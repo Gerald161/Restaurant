@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import AddExtra from "../../../upload/add_extra.png";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
 
 export default function Form({slug, data}) {
     const [extraImagesList, setExtraImagesList] = useState(data.images);
@@ -18,28 +19,84 @@ export default function Form({slug, data}) {
 
     const [price, setPrice] = useState(data.price);
 
+    const [newlyAddedImages, setNewlyAddedImages] = useState([]);
+
+    const [serverImageIndices, setServerImageIndices] = useState([]);
+
+    const router = useRouter();
+
     function addExtraImage(e){
         if(e.target.files.length){
-        const file = e.target.files[0];
+            const file = e.target.files[0];
 
-        if(file.type.startsWith("image/")){
-            const reader = new FileReader();
+            if(file.type.startsWith("image/")){
+                const reader = new FileReader();
 
-            reader.readAsDataURL(file);
+                reader.readAsDataURL(file);
 
-            reader.onload = () => {
-            setExtraImagesList([...extraImagesList, reader.result]);
+                reader.onload = () => {
+                    setNewlyAddedImages([...newlyAddedImages, file]);
+
+                    setExtraImagesList([...extraImagesList, reader.result]);
+                }
             }
-        }
         }
     }
 
     function removeExtraImage(index){
         const updatedImages = [...extraImagesList];
 
+        const oldNewlyAdded = [...newlyAddedImages];
+
         updatedImages.splice(index, 1);
 
+        oldNewlyAdded.splice(index, 1);
+
+        setServerImageIndices([...serverImageIndices, index])
+
+        setNewlyAddedImages(oldNewlyAdded);
+
         setExtraImagesList(updatedImages);
+    }
+
+    async function updateDish(e){
+        e.preventDefault();
+
+        var myHeaders = new Headers();
+
+        myHeaders.append("Token", process.env.TOKEN);
+
+        var formdata = new FormData();
+
+        formdata.append("name", name);
+
+        formdata.append("price", price);
+
+        formdata.append("category", category);
+
+        formdata.append("image_index_to_remove", JSON.stringify(serverImageIndices));
+
+        newlyAddedImages.forEach((image, index)=>{
+            formdata.append(`image_${index}`, image)
+        })
+
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: formdata,
+        };
+    
+        var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/${slug}`, requestOptions);
+    
+        var data = await res.json();
+    
+        if(data["status"] == "updated"){
+            console.log("updated")
+            
+            // router.refresh();
+        
+            // router.push(`/`);
+        }
     }
 
     return (
@@ -89,18 +146,18 @@ export default function Form({slug, data}) {
             {
                 extraImagesList.length < 5 &&
                 <label htmlFor="extra_image">
-                <Image
-                    src={AddExtra}
-                    alt="Add Extra Image"
-                    quality={30}
-                    className={styles.extra_button}
-                />
+                    <Image
+                        src={AddExtra}
+                        alt="Add Extra Image"
+                        quality={30}
+                        className={styles.extra_button}
+                    />
                 </label>
             }
 
             <input onChange={(e)=>{addExtraImage(e)}} id="extra_image" type="file" accept="image/*" name=""/>
 
-            <button>Save Changes</button>
+            <button onClick={(e)=>{updateDish(e)}}>Save Changes</button>
 
             <style jsx global>
                 {

@@ -1,5 +1,6 @@
-import React from 'react'
-import Form from './components/form'
+import React from 'react';
+import Form from './components/form';
+import { redirect } from 'next/navigation';
 
 async function getDishData(slug){
   const res = await fetch(
@@ -20,9 +21,7 @@ export default async function EditDish({params}) {
   const data = await getDishData(slug);
 
   if(data.status !== undefined){
-    return (
-      <p>Redirect Homeboy</p>
-    )
+    redirect("/");
   }else{
     return (
       <Form slug={slug} data={data}/>
