@@ -1,86 +1,53 @@
+"use client"
+
 import styles from "../../styles/mealresults.module.css";
+import styles2 from "../../styles/mealtypeselectiontab.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Image from "next/legacy/image";
+import { faPlus, faPencil } from '@fortawesome/free-solid-svg-icons';
+import Image from "next/image";
+import { useState } from "react";
 
 
-export default function MealResults() {
-  var foods = [
-    {
-        name: "Noodles",
-        price: "15$",
-        image: "1.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Cake",
-        price: "10$",
-        image: "2.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Rice",
-        price: "12$",
-        image: "3.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Pizza",
-        price: "5$",
-        image: "4.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Chocolate",
-        price: "6$",
-        image: "5.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Shake",
-        price: "13$",
-        image: "6.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Cake",
-        price: "25$",
-        image: "7.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-    {
-        name: "Noodles",
-        price: "13$",
-        image: "8.jpg",
-        description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-    },
-  ]
+export default function MealResults({data}){
+    const [allFoods, setAllFoods] = useState(data);
 
-  return (
-    <div className={styles.meal_results}>
-        {
-            foods.map((food, index)=>{
-                return <div key={index} className={styles.meal_result}>
-                    <Link href={`/food/${food.name.toLowerCase()}`} className={styles.meal_result_image_container}>
-                    <Image
-                        src={`/food/${food["image"]}`}
-                        alt="Food Image"
-                        layout="fill"
-                        objectFit="cover"
-                        quality={30}
-                        className={styles.meal_image}
-                    />
-                    </Link>
-                    <h4>{food["name"]}</h4>
-                    
-                    <div className={styles.bottom_section}>
-                        <h4><span>{food["price"]}</span></h4>
-                        <FontAwesomeIcon icon={faPlus} />
+    return (
+        <div>
+            <div className={styles2.div}>
+                <button data-id="breakfast">Breakfast</button>
+                <button data-id="lunch">Lunch</button>
+                <button data-id="supper">Supper</button>
+                <button data-id="drink">Drinks</button>
+            </div>
+
+            <div className={styles.meal_results}>
+            {
+                allFoods.map((food, index)=>{
+                    return <div key={index} className={styles.meal_result}>
+                        <Link href={`/food/${food.slug}`} className={styles.meal_result_image_container}>
+                        {/* <Image
+                            src={`http://127.0.0.1:8000/media/${food["image"]}`}
+                            alt="Food Image"
+                            quality={100}
+                            height={100}
+                            width={100}
+                            className={styles.meal_image}
+                        /> */}
+                        <img loading="lazy" src={`http://127.0.0.1:8000/media/${food["image"]}`} alt="" />
+                        </Link>
+                        <h4>{food["name"]}</h4>
+                        
+                        <div className={styles.bottom_section}>
+                            <h4><span>{food["price"]} $</span></h4>
+                            <Link href={`/edit/${food.slug}`}>
+                                <FontAwesomeIcon icon={faPencil} />
+                            </Link>
+                        </div>
                     </div>
-                </div>
-            })
-        }
-    </div>
-  )
+                })
+            }
+            </div>
+        </div>
+    )
 }

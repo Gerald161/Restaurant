@@ -1,11 +1,25 @@
 import React from 'react';
-import MealTypeSelectionTab from './MealComponents/MealTypeSelectionTab';
 import MealResults from './MealComponents/MealResults';
-export default function MealOptions() {
+
+async function getInitialMeals(){
+  const res = await fetch(
+    `${process.env.API}food/category/breakfast`,
+    {
+      next: {
+        revalidate: 0 //no caching of response
+      }
+    }
+  );
+
+  return res.json();
+}
+
+export default async function MealOptions() {
+  const data = await getInitialMeals();
+
   return (
     <div>
-      <MealTypeSelectionTab/>
-      <MealResults/>
+      <MealResults data={data}/>
     </div>
   )
 }
