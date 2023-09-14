@@ -3,32 +3,22 @@
 import React, { useState } from 'react';
 import styles from "./styles/upload.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faImage, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import AddExtra from "./add_extra.png";
 import Image from "next/image";
 
 export default function Upload() {
   const [extraImagesList, setExtraImagesList] = useState([]);
 
-  const [thumbnailUrl, setThumbnailUrl] = useState("");
+  const [imageFiles, setImageFiles] = useState([]);
 
   const [price, setPrice] = useState(1);
 
-  function selectThumbnail(e){
-    if(e.target.files.length){
-      const file = e.target.files[0];
+  const [name, setName] = useState("");
 
-      if(file.type.startsWith("image/")){
-        const reader = new FileReader();
+  const [category, setCategory] = useState("breakfast");
 
-        reader.readAsDataURL(file);
-
-        reader.onload = () => {
-          setThumbnailUrl(reader.result);
-        }
-      }
-    }
-  }
+  const mealChoices = ["Breakfast", "Lunch", "Supper", "Drinks"];
 
   function addExtraImage(e){
     if(e.target.files.length){
@@ -40,6 +30,8 @@ export default function Upload() {
         reader.readAsDataURL(file);
 
         reader.onload = () => {
+          setImageFiles([...imageFiles, file]);
+
           setExtraImagesList([...extraImagesList, reader.result]);
         }
       }
@@ -49,9 +41,47 @@ export default function Upload() {
   function removeExtraImage(index){
     const updatedImages = [...extraImagesList];
 
+    const oldExtra = [...imageFiles];
+
     updatedImages.splice(index, 1);
 
+    oldExtra.splice(index, 1);
+
+    setImageFiles(oldExtra);
+
     setExtraImagesList(updatedImages);
+  }
+
+  async function uploadDish(e){
+    e.preventDefault();
+
+    var myHeaders = new Headers();
+
+    myHeaders.append("Token", "e85a5c63b0cf7c7f8031e9d113fa0fd5680e6072");
+
+    var formdata = new FormData();
+
+    formdata.append("name", name);
+
+    formdata.append("price", price);
+
+    formdata.append("category", category);
+
+    imageFiles.forEach((image, index)=>{
+      formdata.append(`image_${index}`, image)
+    })
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+    };
+
+    var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/upload`, requestOptions);
+
+    var data = await res.json();
+
+    console.log(data);
   }
 
   return (
@@ -60,38 +90,26 @@ export default function Upload() {
 
       <label>Dish Name</label>
 
-      <input type="text" placeholder="Dish Name" name=""/>
+      <input value={name} onChange={(e)=>{setName(e.target.value)}} type="text" placeholder="Dish Name" name=""/>
 
       <label htmlFor="">Category</label>
 
-      <select className={styles.select} name="" id="">
-        <option value="">Breakfast</option>
-        <option value="">Lunch</option>
-        <option value="">Supper</option>
-        <option value="">Drinks</option>
-        <option value="">Snacks</option>
+      <select onChange={(e)=>{setCategory(e.target.value)}} value={category} className={styles.select} name="" id="">
+        {
+          mealChoices.map((meal,index)=>(
+              <option value={meal.toLowerCase()} key={index}>{meal}</option>
+          ))
+        }
       </select>
 
       <label>Dish Price</label>
 
       <div className={styles.pricing}>
-        <input type="number" value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder='Price'/> 
+        <input type="number" min={1} value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder='Price'/> 
         <span>$</span>
       </div>
 
-      <label>Dish Thumbnail</label>
-
-      <label htmlFor="thumbnail">
-        {
-          thumbnailUrl == "" ? 
-          <FontAwesomeIcon icon={faImage} /> :
-          <img src={thumbnailUrl} alt="Thumbnail Image"/>
-        }
-      </label>
-
-      <input onChange={(e)=>{selectThumbnail(e)}} id="thumbnail" type="file" accept="image/*" name=""/>
-
-      <label>Additional Images</label>
+      <label>Images</label>
 
       <div className={styles.selected_images_container}>
         {
@@ -119,7 +137,7 @@ export default function Upload() {
 
       <input onChange={(e)=>{addExtraImage(e)}} id="extra_image" type="file" accept="image/*" name=""/>
 
-      <button>Upload</button>
+      <button onClick={(e)=>{uploadDish(e)}}>Upload</button>
 
       <style jsx global>
         {

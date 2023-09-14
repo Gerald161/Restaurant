@@ -10,7 +10,6 @@ export default function MealTypeSelectionTab() {
         <button data-id="lunch">Lunch</button>
         <button data-id="supper">Supper</button>
         <button data-id="drink">Drinks</button>
-        <button data-id="snack">Snacks</button>
     </div>
   )
 }
