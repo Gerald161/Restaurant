@@ -62,38 +62,42 @@ export default function Form({slug, data}) {
     async function updateDish(e){
         e.preventDefault();
 
-        var myHeaders = new Headers();
+        if(name.trim() !== "" && price.toString().trim() !== "" && extraImagesList.length !== 0 && price !== 0){
+            var myHeaders = new Headers();
 
-        myHeaders.append("Token", process.env.TOKEN);
+            myHeaders.append("Token", process.env.TOKEN);
 
-        var formdata = new FormData();
+            var formdata = new FormData();
 
-        formdata.append("name", name);
+            formdata.append("name", name);
 
-        formdata.append("price", price);
+            formdata.append("price", price);
 
-        formdata.append("category", category);
+            formdata.append("category", category);
 
-        formdata.append("image_index_to_remove", JSON.stringify(serverImageIndices));
+            formdata.append("image_index_to_remove", JSON.stringify(serverImageIndices));
 
-        newlyAddedImages.forEach((image, index)=>{
-            formdata.append(`image_${index}`, image)
-        })
+            newlyAddedImages.forEach((image, index)=>{
+                formdata.append(`image_${index}`, image)
+            })
 
-        var requestOptions = {
-            method: 'POST',
-            headers: myHeaders,
-            body: formdata,
-        };
-    
-        var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/${slug}`, requestOptions);
-    
-        var data = await res.json();
-    
-        if(data["status"] == "updated"){
-            router.refresh();
+            var requestOptions = {
+                method: 'PUT',
+                headers: myHeaders,
+                body: formdata,
+            };
         
-            router.push(`/`);
+            var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/${slug}`, requestOptions);
+        
+            var data = await res.json();
+        
+            if(data["status"] == "updated"){
+                router.refresh();
+            
+                router.push(`/`);
+            }
+        }else{
+            console.log("Recheck your fields buddy, fix later")
         }
     }
 

@@ -58,36 +58,40 @@ export default function Upload() {
   async function uploadDish(e){
     e.preventDefault();
 
-    var myHeaders = new Headers();
+    if(name.trim() !== "" && price.toString().trim() !== "" && extraImagesList.length !== 0 && price !== 0){
+      var myHeaders = new Headers();
 
-    myHeaders.append("Token", process.env.TOKEN);
+      myHeaders.append("Token", process.env.TOKEN);
 
-    var formdata = new FormData();
+      var formdata = new FormData();
 
-    formdata.append("name", name);
+      formdata.append("name", name);
 
-    formdata.append("price", price);
+      formdata.append("price", price);
 
-    formdata.append("category", category);
+      formdata.append("category", category);
 
-    imageFiles.forEach((image, index)=>{
-      formdata.append(`image_${index}`, image)
-    })
+      imageFiles.forEach((image, index)=>{
+        formdata.append(`image_${index}`, image)
+      })
 
-    var requestOptions = {
-      method: 'POST',
-      headers: myHeaders,
-      body: formdata,
-    };
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: formdata,
+      };
 
-    var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/upload`, requestOptions);
+      var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/upload`, requestOptions);
 
-    var data = await res.json();
+      var data = await res.json();
 
-    if(data["status"] == "complete"){
-      router.refresh();
+      if(data["status"] == "complete"){
+        router.refresh();
 
-      router.push(`/`);
+        router.push(`/`);
+      }
+    }else{
+      console.log("Some fields need filling buddy, error check later")
     }
   }
 
@@ -97,7 +101,7 @@ export default function Upload() {
 
       <label>Dish Name</label>
 
-      <input value={name} onChange={(e)=>{setName(e.target.value)}} type="text" placeholder="Dish Name" name=""/>
+      <input required value={name} onChange={(e)=>{setName(e.target.value)}} type="text" placeholder="Dish Name" name=""/>
 
       <label htmlFor="">Category</label>
 
@@ -112,7 +116,7 @@ export default function Upload() {
       <label>Dish Price</label>
 
       <div className={styles.pricing}>
-        <input type="number" min={1} value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder='Price'/> 
+        <input required type="number" min={1} value={price} onChange={(e)=>{setPrice(e.target.value)}} placeholder='Price'/> 
         <span>$</span>
       </div>
 
