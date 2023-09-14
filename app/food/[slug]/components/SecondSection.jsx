@@ -1,7 +1,9 @@
+"use client"
+
 import React from 'react';
 import styles from "./styles/secondSection.module.css";
 
-export default function SecondSection() {
+export default function SecondSection({data}) {
   return (
     <div className={styles.second_section}>
       <h3>Description</h3>
@@ -11,7 +13,7 @@ export default function SecondSection() {
         quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
         consequat. Duis aute irure dolor.</p>
 
-      <p><span className={styles.price}>Price:</span><span>20</span>$</p>
+      <p><span className={styles.price}>Price:</span><span>{data.price}</span>$</p>
 
       <div>
         <label htmlFor="amount">Number:</label>

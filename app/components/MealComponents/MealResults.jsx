@@ -39,15 +39,7 @@ export default function MealResults({data}){
                 allFoods.map((food, index)=>{
                     return <div key={index} className={styles.meal_result}>
                         <Link href={`/food/${food.slug}`} className={styles.meal_result_image_container}>
-                        {/* <Image
-                            src={`http://127.0.0.1:8000/media/${food["image"]}`}
-                            alt="Food Image"
-                            quality={100}
-                            height={100}
-                            width={100}
-                            className={styles.meal_image}
-                        /> */}
-                        <img loading="lazy" src={`http://127.0.0.1:8000/media/${food["image"]}`} alt="" />
+                            <img loading="lazy" src={`http://127.0.0.1:8000/media/${food["image"]}`} alt="" />
                         </Link>
                         <h4>{food["name"]}</h4>
                         
