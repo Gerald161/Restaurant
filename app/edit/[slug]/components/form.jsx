@@ -91,11 +91,32 @@ export default function Form({slug, data}) {
         var data = await res.json();
     
         if(data["status"] == "updated"){
-            console.log("updated")
-            
-            // router.refresh();
+            router.refresh();
         
-            // router.push(`/`);
+            router.push(`/`);
+        }
+    }
+
+    async function deleteDish(e){
+        e.preventDefault();
+
+        var myHeaders = new Headers();
+        
+        myHeaders.append("Token", process.env.TOKEN);
+
+        var requestOptions = {
+            method: 'DELETE',
+            headers: myHeaders,
+        };
+
+        var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/remove/${slug}`, requestOptions);
+    
+        var data = await res.json();
+    
+        if(data["status"] == "deleted"){
+            router.refresh();
+        
+            router.push(`/`);
         }
     }
 
@@ -158,6 +179,8 @@ export default function Form({slug, data}) {
             <input onChange={(e)=>{addExtraImage(e)}} id="extra_image" type="file" accept="image/*" name=""/>
 
             <button onClick={(e)=>{updateDish(e)}}>Save Changes</button>
+
+            <button onClick={(e)=>{deleteDish(e)}}>Delete Dish</button>
 
             <style jsx global>
                 {

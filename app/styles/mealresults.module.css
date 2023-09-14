@@ -27,6 +27,7 @@
     transition: all 0.5s;
     width: 1.2em;
     height: 1.2em;
+    color: black;
 }
   
 .meal_results .meal_result .bottom_section svg:hover{
