@@ -30,10 +30,12 @@ export default function FirstSection({data}){
   }
 
   function handleResize(){
-    if(window.innerWidth <= '800'){
-      sliderRef.current.style.left = `-${leftValueResized.current}vw`;
-    }else{
-      sliderRef.current.style.left = `-${leftValue.current}vw`;
+    if(sliderRef.current !== null){
+      if(window.innerWidth <= '800'){
+        sliderRef.current.style.left = `-${leftValueResized.current}vw`;
+      }else{
+        sliderRef.current.style.left = `-${leftValue.current}vw`;
+      }
     }
   }
 

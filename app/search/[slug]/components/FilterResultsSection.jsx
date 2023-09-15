@@ -1,78 +1,22 @@
+"use client"
+
 import React from 'react';
 import styles from "../styles/filterResultsSection.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import Image from "next/legacy/image";
 import Link from "next/link";
 
-export default function FilterResultsSection() {
-    var foods = [
-        {
-            name: "Noodles",
-            price: "15$",
-            image: "1.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Cake",
-            price: "10$",
-            image: "2.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Rice",
-            price: "12$",
-            image: "3.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Pizza",
-            price: "5$",
-            image: "4.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Choco Cake",
-            price: "6$",
-            image: "5.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Shake",
-            price: "13$",
-            image: "6.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Cake",
-            price: "25$",
-            image: "7.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-        {
-            name: "Noodles",
-            price: "13$",
-            image: "8.jpg",
-            description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit."
-        },
-      ]
-
+export default function FilterResultsSection({data, slug}) {
     return (
         <div className={styles.filter_results_section}>
-            <h3>Results for food...</h3>
+            <h3>Results for "{slug.replace(/-/g, " ")}"</h3>
 
             <div className={styles.search_results}>
             {
-                foods.map((food)=>{
-                    return <div className={styles.search_result}>
-                        <Link href="#" className={styles.search_result_image_container}>
-                        <Image
-                            src={`/food/${food["image"]}`}
-                            alt="Food Image"
-                            layout="fill"
-                            objectFit="cover"
-                            quality={30}
-                        />
+                data.map((food, index)=>{
+                    return <div key={index} className={styles.search_result}>
+                        <Link href={`/food/${food["slug"]}`} className={styles.search_result_image_container}>
+                            <img src={`http://127.0.0.1:8000/media/${food["images"][0]}`} alt="" />
                         </Link>
                         <h4>{food["name"]}</h4>
                         
