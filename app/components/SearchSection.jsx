@@ -16,7 +16,7 @@ export default function SearchSection() {
   function handleSearch(e){
     e.preventDefault();
 
-    router.push(`/search/${word}`);
+    router.push(`/search/${word.replace(/ /g, "-")}`);
   }
 
   return (

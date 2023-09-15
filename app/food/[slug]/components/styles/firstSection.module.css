@@ -61,6 +61,10 @@
     box-shadow: 0 5px 20px rgba(0,0,0, 1);
 }
 
+.first_section .extra_info .additional_images .additional_image:hover img{
+    opacity: 1;
+}
+
 .first_section .extra_info .additional_images .inactive{
     opacity: 0.6;
 }

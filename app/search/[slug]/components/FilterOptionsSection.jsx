@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react';
 import styles from "../styles/filterOptionsSection.module.css";
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -39,25 +41,35 @@ export default function FilterOptionsSection() {
       },
   ];
 
-  const [searchResults, setSearchResults] = useState(["a","b","c"]);
+  const [searchResults, setSearchResults] = useState([]);
 
   const resetSearchBox = () => {
     setSearchResults([]);
+  }
+
+  async function getSearchSuggestion(e){
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API}food/search/${e.target.value}`); 
+
+    const data = await res.json();
+
+    setSearchResults(data);
   }
 
   return (
     <div className={styles.filter_options_section}>
         <form method="post">
             <div className={styles.search_block}>
-                <input type="text" placeholder="Search..." id="search_box" name=""/>
+                <input onChange={(e)=>{getSearchSuggestion(e)}} type="text" placeholder="Search..." id="search_box" name=""/>
 
                 <FontAwesomeIcon icon={faXmark} onClick={(e)=>{resetSearchBox()}}/>
             </div>
 
-            <div className={styles.search_suggestions}>
+            <div className={
+                `${styles.search_suggestions} ${searchResults.length !== 0 && styles.show_border}`
+              }>
               {
                 searchResults.map((result,index)=>(
-                  <Link href="#" key={index}>{result}</Link>
+                  <Link href={`/food/${result["slug"]}`} key={index}>{result["name"]}</Link>
                 ))
               }
             </div>
@@ -90,6 +102,54 @@ export default function FilterOptionsSection() {
           <button data-id="breakfast">Cancel</button>
           <button data-id="lunch">Apply</button>
         </div>
+
+        <style jsx global>
+            {
+                `
+                nav{
+                  position: relative;
+                }
+
+                nav div:nth-child(1) a div{
+                  background: url("/logo2.png") no-repeat center/cover;
+                }
+
+                nav div:nth-child(3) a{
+                  border: 1.5px solid black;
+                }
+        
+                nav div:nth-child(3) a:hover{
+                  border: white;
+                  color: white;
+                  background: black;
+                }
+
+                nav svg{
+                  color: black;
+                }
+
+                a{
+                  color: black;
+                }
+
+                .quick_nav{
+                  display: none;
+                }
+
+                .main{
+                  display: flex;
+                  border-top: solid 1px #ccc;
+                  margin-bottom: 5px;
+                }
+
+                @media(max-width: 800px){
+                  .main{
+                    flex-direction: column;
+                  }
+                }
+                `
+            }
+            </style>
     </div>
   )
 }
