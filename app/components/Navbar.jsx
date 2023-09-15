@@ -4,7 +4,7 @@ import React, { useEffect, useState } from 'react';
 import styles from "../styles/navbar.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBars, faRightFromBracket, faGear } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faRightFromBracket, faGear, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 
@@ -54,9 +54,6 @@ export default function NavBar() {
       </div>
 
       <div className='quick_nav'>
-        <Link href="/checkout" className={styles.nav_link}>
-          Checkout
-        </Link>
         <a href="#diets" className={styles.nav_link}>
           Diets
         </a>
@@ -71,24 +68,32 @@ export default function NavBar() {
           <Link href="/login">Login</Link>
           <Link href="/signup">Join</Link>
         </div> :
-        <div className={styles.profile_tab_container}>
-          <div className={styles.image_container} onClick={()=>{showMoreOptions()}}>
-            <Image
-              src={profileImageUrl}
-              alt='Profile Image'
-              height={100}
-              width={100}
-            />
-          </div>
+        <div className={styles.signed_in_options}>
+          <Link href="/checkout">
+            <FontAwesomeIcon icon={faCartShopping}/>
 
-          <div className={optionsVisibility == true ? styles.profile_options : styles.no_element_visibility}>
-            <div className={styles.option}>
-              <p className={styles.label}>Settings</p>
-              <FontAwesomeIcon icon={faGear}/>
+            <p>12</p>
+          </Link>
+
+          <div className={styles.profile_tab_container}>
+            <div className={styles.image_container} onClick={()=>{showMoreOptions()}}>
+              <Image
+                src={profileImageUrl}
+                alt='Profile Image'
+                height={100}
+                width={100}
+              />
             </div>
-            <div className={styles.option}>
-              <p className={styles.label}>Log out</p>
-              <FontAwesomeIcon icon={faRightFromBracket}/>
+
+            <div className={optionsVisibility == true ? styles.profile_options : styles.no_element_visibility}>
+              <div className={styles.option}>
+                <p className={styles.label}>Settings</p>
+                <FontAwesomeIcon icon={faGear}/>
+              </div>
+              <div className={styles.option}>
+                <p className={styles.label}>Log out</p>
+                <FontAwesomeIcon icon={faRightFromBracket}/>
+              </div>
             </div>
           </div>
         </div>
@@ -97,6 +102,14 @@ export default function NavBar() {
       <div className={styles.more_button}>
         <FontAwesomeIcon icon={faBars}/>
       </div>
+
+      <style jsx global>
+        {`
+          nav div:nth-child(3) a:hover svg{
+            color: white;
+          }
+        `}
+      </style>
     </nav>
   )
 }
