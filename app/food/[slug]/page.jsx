@@ -1,6 +1,5 @@
 import React from 'react'
 import FirstSection from './components/FirstSection';
-import SecondSection from './components/SecondSection';
 import styles from "./food.module.css";
 
 async function getDishData(slug){
@@ -24,8 +23,6 @@ export default async function FoodPage({params}) {
     return (
         <div className={styles.main}>
             <FirstSection data={data}/>
-
-            <SecondSection data={data}/>
         </div>
     )
 }
