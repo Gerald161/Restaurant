@@ -1,10 +1,7 @@
 .main{
     display: flex;
-    padding-bottom: 15px;
-}
-
-@media(max-width: 800px){
-    .main{
-        flex-direction: column;
-    }
+    flex-direction: column;
+    padding-bottom: 35px;
+    justify-content: center;
+    align-items: center;
 }

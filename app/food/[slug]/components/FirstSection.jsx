@@ -1,27 +1,50 @@
 "use client";
 
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from "./styles/firstSection.module.css";
+import styles2 from "./styles/SecondSection.module.css";
 
 export default function FirstSection({data}){
   const allImages = data.images;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
 
-  const sliderRef = useRef();
+  const sliderRef = useRef(null);
 
-  function nextImageSwitch(){
+  const leftValueResized = useRef(0);
+
+  const leftValue = useRef(0);
+
+  function slideImage(e, index){
+    setSelectedIndex(index);
+
+    leftValueResized.current = e.target.dataset.left2;
+
+    leftValue.current = e.target.dataset.left;
+
     if(window.innerWidth <= '800'){
-
+      sliderRef.current.style.left = `-${e.target.dataset.left2}vw`;
     }else{
-      sliderRef.current.style.left = `-70vw`;
-
-      setSelectedIndex(selectedIndex + 1);
+      sliderRef.current.style.left = `-${e.target.dataset.left}vw`;
     }
   }
 
+  function handleResize(){
+    if(window.innerWidth <= '800'){
+      sliderRef.current.style.left = `-${leftValueResized.current}vw`;
+    }else{
+      sliderRef.current.style.left = `-${leftValue.current}vw`;
+    }
+  }
+
+  useEffect(()=>{
+    if(sliderRef.current !== null){
+      window.addEventListener('resize', handleResize);
+    }
+  },[])
+
   return (
-    <div className={styles.first_section}>
+    <div onResize={(e)=>{checkWindowSize()}} className={styles.first_section}>
       <div className={styles.first}>
         <div className={styles.slider} ref={sliderRef}>
           {
@@ -32,9 +55,6 @@ export default function FirstSection({data}){
             ))
           }
         </div>
-
-        <a className={styles.prev}>&#10094;</a>
-        <a onClick={()=>{nextImageSwitch()}} className={styles.next}>&#10095;</a> 
       </div>
 
       <div className={styles.extra_info}>
@@ -44,17 +64,26 @@ export default function FirstSection({data}){
           {
             allImages.map((image, index)=>(
               <div key={index} 
-              onClick={()=>{setSelectedIndex(index)}}
-                className={
-                  `${styles.additional_image} 
-                  ${
-                    index !== selectedIndex && styles.inactive
-                  }`
-                }>
-                <img loading="lazy" src={`http://127.0.0.1:8000/media/${image}`} alt="" />
+                onClick={(e)=>{slideImage(e, index)}}
+                className={styles.additional_image}>
+                <img className={index !== selectedIndex && styles.inactive}
+                 data-left={index * 70} data-left2={index * 100} 
+                 loading="lazy" src={`http://127.0.0.1:8000/media/${image}`} 
+                 alt="" />
               </div>
             ))
           }
+        </div>
+
+        <div className={styles2.second_section}>
+          <p><span className={styles2.price}>Price:</span><span>{data.price}</span>$</p>
+
+          <div>
+            <label htmlFor="amount">Amount:</label>
+            <input id="amount" type="number" min="1" name=""/>
+          </div>
+
+          <button className={styles2.order_button}>Add to Orders</button>
         </div>
       </div>
 
