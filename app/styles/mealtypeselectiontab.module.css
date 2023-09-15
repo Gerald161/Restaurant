@@ -19,6 +19,14 @@
   
 .div button:focus{
     background: white;
+}
+
+.div .active{
+    border-bottom: solid 2px #009579;
+    transition: all 0.1s;
+}
+
+.div .active:hover{
     border-bottom: solid 2px #009579;
 }
 

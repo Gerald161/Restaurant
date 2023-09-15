@@ -35,8 +35,8 @@ export default function page() {
               background: url("/logo2.png") no-repeat center/cover;
             }
 
-            nav div:nth-child(3) a{
-              display: none;
+            nav div:nth-child(3) a:hover svg{
+              color: black;
             }
 
             nav svg{

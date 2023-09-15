@@ -14,7 +14,11 @@ export default function MealResults({data}){
 
     const mealChoices = ["Breakfast", "Lunch", "Supper", "Drinks"];
 
-    async function changeMealCategory(meal){
+    const [selectedIndex, setSelectedIndex] = useState(0);
+
+    async function changeMealCategory(meal, index){
+        setSelectedIndex(index);
+
         const res = await fetch(
             `${process.env.NEXT_PUBLIC_API}food/category/${meal}`
         );
@@ -29,7 +33,10 @@ export default function MealResults({data}){
             <div className={styles2.div}>
                 {
                     mealChoices.map((meal, index)=>(
-                        <button key={index} onClick={(e)=>{changeMealCategory(meal)}}>{meal}</button>
+                        <button
+                            className={index === selectedIndex ? styles2.active : ""}
+                            key={index} onClick={(e)=>{changeMealCategory(meal, index)}}
+                        >{meal}</button>
                     ))
                 }
             </div>

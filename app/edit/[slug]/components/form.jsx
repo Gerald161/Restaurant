@@ -201,6 +201,10 @@ export default function Form({slug, data}) {
                     nav div:nth-child(3) a{
                     border: 1.5px solid black;
                     }
+
+                    nav div:nth-child(3) a:hover svg{
+                    color: black;
+                    }
             
                     nav div:nth-child(3) a:hover{
                     border: white;

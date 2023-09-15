@@ -110,6 +110,10 @@ export default function FirstSection({data}){
             color: white;
             background: black;
           }
+
+          nav div:nth-child(3) a:hover svg{
+            color: black;
+          }
           
           nav div:nth-child(3) div:nth-child(2) p{
             color: white;
