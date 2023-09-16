@@ -17,6 +17,25 @@ export default function NavBar() {
 
   const [optionsVisibility, setOptionsVisibility] = useState(false);
 
+  const [orderNumber, setOrderNumber] = useState(0);
+
+  async function getOrderCount(){
+    var myHeaders = new Headers();
+
+    myHeaders.append("Authorization", `Token ${process.env.NEXT_PUBLIC_TOKEN}`);
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+
+    var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/order/`, requestOptions);
+
+    var data = await res.json();
+
+    setOrderNumber(data.length);
+  }
+
   useEffect(()=>{
     var username = localStorage.getItem("username");
 
@@ -29,6 +48,8 @@ export default function NavBar() {
 
       //Making sure the toggle of the visibility is always negative
       setOptionsVisibility(false);
+
+      getOrderCount();
     }else{
       setProfileTabVisibility(false);
     }
@@ -72,7 +93,7 @@ export default function NavBar() {
           <Link href="/checkout">
             <FontAwesomeIcon icon={faCartShopping}/>
 
-            <p>12</p>
+            <p>{orderNumber}</p>
           </Link>
 
           <div className={styles.profile_tab_container}>
