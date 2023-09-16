@@ -40,7 +40,10 @@
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    /* border: solid 1px black; */
+}
+
+.discount_and_total .discounts .address_container .show_border{
+    border: solid 1px black;
 }
   
 .discount_and_total .discounts .address_container .address_suggestions a{
