@@ -48,11 +48,13 @@ export default function FilterOptionsSection() {
   }
 
   async function getSearchSuggestion(e){
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API}food/search/${e.target.value}`); 
+    if(e.target.value.trim() !== ""){
+      const res = await fetch(`${process.env.NEXT_PUBLIC_API}food/search/${e.target.value}`); 
 
-    const data = await res.json();
+      const data = await res.json();
 
-    setSearchResults(data);
+      setSearchResults(data);
+    }
   }
 
   return (
