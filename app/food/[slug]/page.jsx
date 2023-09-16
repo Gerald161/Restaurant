@@ -22,7 +22,7 @@ export default async function FoodPage({params}) {
 
     return (
         <div className={styles.main}>
-            <FirstSection data={data}/>
+            <FirstSection data={data} slug={slug}/>
         </div>
     )
 }

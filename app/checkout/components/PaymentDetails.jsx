@@ -1,3 +1,5 @@
+"use client"
+
 import React from 'react';
 import styles from "./styles/paymentDetails.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -61,6 +63,42 @@ export default function PaymentDetails() {
         </div>
 
         <button className={styles.payment_button}>Pay $70.00</button>
+
+        <style jsx global>
+        {
+            `
+            nav{
+              position: relative;
+            }
+
+            nav div:nth-child(1) a div{
+              background: url("/logo2.png") no-repeat center/cover;
+            }
+
+            nav div:nth-child(3) a:hover svg{
+              color: black;
+            }
+
+            nav svg{
+              color: black;
+            }
+
+            a{
+              color: black;
+            }
+
+            .quick_nav{
+              display: none;
+            }
+
+            .main{
+              display: flex;
+              border-top: solid 1px #ccc;
+              margin-bottom: 5px;
+            }
+            `
+        }
+      </style>
     </div>
   )
 }

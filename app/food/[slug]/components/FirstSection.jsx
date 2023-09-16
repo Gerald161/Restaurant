@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styles from "./styles/firstSection.module.css";
 import styles2 from "./styles/SecondSection.module.css";
 
-export default function FirstSection({data}){
+export default function FirstSection({data, slug}){
   const allImages = data.images;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -14,6 +14,8 @@ export default function FirstSection({data}){
   const leftValueResized = useRef(0);
 
   const leftValue = useRef(0);
+
+  const [amount, setAmount] = useState(1);
 
   function slideImage(e, index){
     setSelectedIndex(index);
@@ -36,6 +38,30 @@ export default function FirstSection({data}){
       }else{
         sliderRef.current.style.left = `-${leftValue.current}vw`;
       }
+    }
+  }
+
+  async function addOrder(slug){
+    var myHeaders = new Headers();
+
+    myHeaders.append("Authorization", `Token ${process.env.NEXT_PUBLIC_TOKEN}`);
+
+    var formdata = new FormData();
+
+    formdata.append("amount", amount);
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: formdata,
+    };
+
+    var res = await fetch(`${process.env.NEXT_PUBLIC_API}food/order/${slug}`, requestOptions);
+        
+    var data = await res.json();
+
+    if(data["status"] == "uploaded"){
+      console.log("Order added successfully")
     }
   }
 
@@ -82,10 +108,10 @@ export default function FirstSection({data}){
 
           <div>
             <label htmlFor="amount">Amount:</label>
-            <input id="amount" type="number" min="1" name=""/>
+            <input onChange={(e)=>{setAmount(e.target.value)}} value={amount} id="amount" type="number" min="1" name=""/>
           </div>
 
-          <button className={styles2.order_button}>Add to Orders</button>
+          <button onClick={()=>{addOrder(slug)}} className={styles2.order_button}>Add to Orders</button>
         </div>
       </div>
 

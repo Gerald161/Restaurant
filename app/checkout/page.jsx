@@ -1,5 +1,3 @@
-"use client"
-
 import React from 'react';
 import Image from "next/image";
 import styles from "./style.module.css";
@@ -23,42 +21,6 @@ export default function page() {
         <OrderSummary/>
 
         <PaymentDetails/>
-        
-        <style jsx global>
-        {
-            `
-            nav{
-              position: relative;
-            }
-
-            nav div:nth-child(1) a div{
-              background: url("/logo2.png") no-repeat center/cover;
-            }
-
-            nav div:nth-child(3) a:hover svg{
-              color: black;
-            }
-
-            nav svg{
-              color: black;
-            }
-
-            a{
-              color: black;
-            }
-
-            .quick_nav{
-              display: none;
-            }
-
-            .main{
-              display: flex;
-              border-top: solid 1px #ccc;
-              margin-bottom: 5px;
-            }
-            `
-        }
-      </style>
     </div>
   )
 }
