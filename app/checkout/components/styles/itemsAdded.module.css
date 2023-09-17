@@ -1,15 +1,23 @@
 .items_added{
     flex: 1;
     display: flex;
-    padding: 1em 1.2em;
+    padding: 1em 0;
     flex-direction: column;
     gap: 30px;
+    border-right: solid 1px #ccc;
 }
   
 .items_added .all_orders{
     display: flex;
     flex-direction: column;
     gap: 15px;
+    padding: 0 1.2em;
+    max-height: 40vh;
+    overflow-y: auto;
+}
+
+.items_added h3{
+    padding: 0 1.2em;
 }
   
 .items_added .all_orders .item_ordered{
@@ -51,4 +59,43 @@
 .items_added .all_orders .item_ordered .image_and_details_container .item_details .price_calculator_container input{
     width: 50px;
     text-align: center;
+}
+
+.discount_place{
+    border-top: solid 1px #ccc;
+    padding: 1em 0;
+}
+
+.discount_code_container{
+    display: flex;
+    gap: 5px;
+    margin: 15px 0;
+    padding: 0 1.2em;
+}
+  
+.discount_code_container input{
+    padding: 10px 12px;
+}
+  
+.discount_code_container button{
+    padding: 10px 25px;
+    cursor: pointer;
+    transition: all 0.1s;
+}
+  
+.total{
+    padding: 1em 1.2em;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+  
+.total .total_item_and_description{
+    display: flex;
+    justify-content: space-between;
+    margin-right: 10px;
+}
+  
+.total .total_item_and_description{
+    font-weight: bold;
 }

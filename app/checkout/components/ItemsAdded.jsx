@@ -1,7 +1,8 @@
 "use client"
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from "./styles/itemsAdded.module.css";
+import styles2 from "./styles/discount_and_total.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
@@ -11,6 +12,14 @@ export default function ItemsAdded({data}){
 
     const [prices, setPrices] = useState(data.map((info)=>(info.price * info.amount)))
 
+    const [totalPrice, setTotalPrice] = useState(0);
+
+    const calculateTotalPrice = () => {
+        const total = prices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+
+        setTotalPrice(total);
+    };
+
     async function increaseOrderCount(slug, amount, index){
         if(amount.trim() !== "" && parseInt(amount) !== 0){
             const oldPrices = [...prices];
@@ -18,6 +27,8 @@ export default function ItemsAdded({data}){
             oldPrices.splice(index, 1, parseInt(amount) * orders[index].price);
 
             setPrices(oldPrices);
+
+            calculateTotalPrice();
 
             var myHeaders = new Headers();
 
@@ -48,6 +59,14 @@ export default function ItemsAdded({data}){
 
         oldOrders.splice(index, 1);
 
+        const oldPrices = [...prices];
+
+        oldPrices.splice(index, 1);
+
+        setPrices(oldPrices);
+
+        calculateTotalPrice();
+
         setOrders(oldOrders);
 
         var myHeaders = new Headers();
@@ -67,6 +86,10 @@ export default function ItemsAdded({data}){
             console.log("Your order is gone, blown to bits, reduced to atoms")
         }
     }
+
+    useEffect(() => {
+        calculateTotalPrice();
+    }, [prices]);
 
     return (
         <div className={styles.items_added}>
@@ -95,6 +118,24 @@ export default function ItemsAdded({data}){
                         </div> 
                     )) : <p>No orders have been made</p>
                 }
+                
+            </div>
+
+            <div className={styles.discount_place}>
+                <p style={{padding: "0 1.2em"}}>Gift Card/Discount Code</p>
+
+                <div className={styles.discount_code_container}>
+                    <input type="text" placeholder="Discount" name=""/>
+
+                    <button>Apply</button>
+                </div>
+
+                <div className={styles.total}>
+                    <div className={styles.total_item_and_description}>
+                        <p>Total</p>
+                        <p>{totalPrice}$</p>
+                    </div>
+                </div>
             </div>
         </div>
     )
