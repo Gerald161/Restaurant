@@ -31,3 +31,61 @@ a{
     width: 100%;
     height: 50vh;
 }
+
+.map_container{
+    flex: 1;
+    width: 100%;
+    height: auto;
+}
+
+.address_search_container{
+    position: relative;
+    margin: 10px 15px;
+}
+
+.address_search_container input{
+    width: 97%;  
+    padding: 10px 25px 10px 15px;
+}
+
+.address_search_container svg{
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    top: 19%;
+    right: 25px;
+    cursor: pointer;
+}
+
+.address_suggestions{
+    position: absolute;
+    margin: 0 15px;
+    width: 613px;
+    background: white;
+    z-index: 3333;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.show_border{
+    border: solid 1px black;
+    padding: 10px;
+}
+
+.address_suggestions a{
+    text-decoration: none;
+    color: black;
+    transition: all 0.2s;
+    padding: 5px 10px;
+}
+  
+.address_suggestions a:hover{
+    color: dodgerblue;
+}
+
+@media(max-width: 800px){
+    .map_container{
+        min-height: 400px;
+    }
+}

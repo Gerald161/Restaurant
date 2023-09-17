@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from "./styles/orderSummary.module.css";
 import ItemsAdded from './ItemsAdded';
-import DiscountAndTotal from './DiscountAndTotal';
+import DiscountAndTotal from './MapSection';
 
 async function getAllOrders(){
   var myHeaders = new Headers();
