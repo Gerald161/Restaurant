@@ -49,7 +49,9 @@ export default function NavBar() {
       //Making sure the toggle of the visibility is always negative
       setOptionsVisibility(false);
 
-      getOrderCount();
+      getOrderCount().catch((err)=>{
+        console.log("could not fetch request")
+      });
     }else{
       setProfileTabVisibility(false);
     }
