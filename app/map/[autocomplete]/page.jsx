@@ -18,13 +18,15 @@ export default function Places() {
 }
 
 function Map() {
-  const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+  // const center = useMemo(() => ({ lat: 43.45, lng: -80.49 }), []);
+  const [center, setCenter] = useState({ lat: 43.45, lng: -80.49 });
+
   const [selected, setSelected] = useState(null);
 
   return (
     <>
       <div className="places-container">
-        <PlacesAutocomplete setSelected={setSelected} />
+        <PlacesAutocomplete setSelected={setSelected} setCenter={setCenter}/>
       </div>
 
       <GoogleMap
@@ -38,7 +40,7 @@ function Map() {
   );
 }
 
-const PlacesAutocomplete = ({ setSelected }) => {
+const PlacesAutocomplete = ({ setSelected, setCenter }) => {
   const {
     ready,
     value,
@@ -54,6 +56,7 @@ const PlacesAutocomplete = ({ setSelected }) => {
     const results = await getGeocode({ address });
     const { lat, lng } = await getLatLng(results[0]);
     setSelected({ lat, lng });
+    setCenter({lat, lng});
   };
 
   return (
