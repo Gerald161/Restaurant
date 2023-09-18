@@ -2,10 +2,11 @@
 
 import React, { useEffect, useState } from 'react';
 import styles from "./styles/itemsAdded.module.css";
-import styles2 from "./styles/discount_and_total.module.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { decrement } from "../../redux/counter";
 
 export default function ItemsAdded({data}){
     const [orders, setOrders] = useState(data);
@@ -13,6 +14,8 @@ export default function ItemsAdded({data}){
     const [prices, setPrices] = useState(data.map((info)=>(info.price * info.amount)))
 
     const [totalPrice, setTotalPrice] = useState(0);
+
+    const dispatch = useDispatch();
 
     const calculateTotalPrice = () => {
         const total = prices.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
@@ -55,6 +58,8 @@ export default function ItemsAdded({data}){
     }
 
     async function removeOrder(slug, index){
+        dispatch(decrement())
+
         const oldOrders = [...orders];
 
         oldOrders.splice(index, 1);

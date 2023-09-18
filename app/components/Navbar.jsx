@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faRightFromBracket, faGear, faCartShopping } from '@fortawesome/free-solid-svg-icons';
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
+import { useSelector, useDispatch } from 'react-redux';
+import { incrementByAmount, increment } from "../redux/counter";
 
 export default function NavBar() {
   const pathName = usePathname();
@@ -17,7 +19,9 @@ export default function NavBar() {
 
   const [optionsVisibility, setOptionsVisibility] = useState(false);
 
-  const [orderNumber, setOrderNumber] = useState(0);
+  const count = useSelector((state) => state.counter.value);
+
+  const dispatch = useDispatch();
 
   async function getOrderCount(){
     var myHeaders = new Headers();
@@ -33,7 +37,7 @@ export default function NavBar() {
 
     var data = await res.json();
 
-    setOrderNumber(data.length);
+    dispatch(incrementByAmount(data.length))
   }
 
   useEffect(()=>{
@@ -95,7 +99,7 @@ export default function NavBar() {
           <Link href="/checkout">
             <FontAwesomeIcon icon={faCartShopping}/>
 
-            <p>{orderNumber}</p>
+            <p>{count}</p>
           </Link>
 
           <div className={styles.profile_tab_container}>

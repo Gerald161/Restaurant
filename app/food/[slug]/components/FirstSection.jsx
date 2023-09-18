@@ -3,8 +3,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styles from "./styles/firstSection.module.css";
 import styles2 from "./styles/SecondSection.module.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from "../../../redux/counter";
 
 export default function FirstSection({data, slug}){
+  const count = useSelector((state) => state.counter.value);
+
+  const dispatch = useDispatch();
+
   const allImages = data.images;
 
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -61,7 +67,11 @@ export default function FirstSection({data, slug}){
     var data = await res.json();
 
     if(data["status"] == "uploaded"){
-      console.log("Order added successfully")
+      console.log("Order added successfully");
+      
+      dispatch(increment());
+    }else{
+      console.log("Already added or food")
     }
   }
 
@@ -86,6 +96,8 @@ export default function FirstSection({data, slug}){
       </div>
 
       <div className={styles.extra_info}>
+        <p>{count}</p>
+
         <h3>{data.name}</h3>
 
         <div className={styles.additional_images}>
