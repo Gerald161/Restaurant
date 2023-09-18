@@ -7,6 +7,8 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import Link from 'next/link';
 import { useDispatch } from 'react-redux';
 import { decrement } from "../../redux/counter";
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function ItemsAdded({data}){
     const [orders, setOrders] = useState(data);
@@ -57,6 +59,20 @@ export default function ItemsAdded({data}){
         }
     }
 
+    const notify = (message) => {
+        toast.success(message, {
+            position: "top-right",
+            autoClose: 3000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide
+        });
+    };
+
     async function removeOrder(slug, index){
         dispatch(decrement())
 
@@ -88,7 +104,8 @@ export default function ItemsAdded({data}){
         const data = await res.json();
 
         if(data["status"] === "deleted"){
-            console.log("Your order is gone, blown to bits, reduced to atoms")
+            // console.log("Your order is gone, blown to bits, reduced to atoms")
+            notify("Your order is gone, blown to bits, reduced to atoms")
         }
     }
 
@@ -98,6 +115,8 @@ export default function ItemsAdded({data}){
 
     return (
         <div className={styles.items_added}>
+            <ToastContainer/>
+
             <h3>Order Summary</h3>
 
             <div className={styles.all_orders}>

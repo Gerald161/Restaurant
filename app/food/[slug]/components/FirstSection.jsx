@@ -5,6 +5,8 @@ import styles from "./styles/firstSection.module.css";
 import styles2 from "./styles/SecondSection.module.css";
 import { useSelector, useDispatch } from 'react-redux';
 import { increment } from "../../../redux/counter";
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function FirstSection({data, slug}){
   const count = useSelector((state) => state.counter.value);
@@ -47,6 +49,33 @@ export default function FirstSection({data, slug}){
     }
   }
 
+  const notify = () => {
+    toast.success('Order has successfully been added', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: false,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Slide
+    });
+  };
+
+  const notifyError = () => {
+    toast.warn('Order has already been added', {
+      position: "top-right",
+      autoClose: 2000,
+      hideProgressBar: true,
+      closeOnClick: true,
+      pauseOnHover: false,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+  };
+
   async function addOrder(slug){
     var myHeaders = new Headers();
 
@@ -67,11 +96,11 @@ export default function FirstSection({data, slug}){
     var data = await res.json();
 
     if(data["status"] == "uploaded"){
-      console.log("Order added successfully");
+      notify();
       
       dispatch(increment());
     }else{
-      console.log("Already added or food")
+      notifyError();
     }
   }
 
@@ -96,6 +125,8 @@ export default function FirstSection({data, slug}){
       </div>
 
       <div className={styles.extra_info}>
+      <ToastContainer/>
+
         <p>{count}</p>
 
         <h3>{data.name}</h3>
