@@ -3,15 +3,46 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { decrement, increment, incrementByAmount } from "../redux/counter";
+import { Slide, ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function page() {
     const count = useSelector((state) => state.counter.value);
 
     const dispatch = useDispatch();
 
+    const notify = () => {
+        toast.success('🦄 Wow so easy!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            transition: Slide
+        });
+
+        toast.error('🦄 Wow so easy!', {
+            position: "top-right",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: false,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        });
+    };
+
     return (
         <div>
             <p style={{textAlign: "center", margin: "20px 0 0 0 "}}>{count}</p>
+
+            <button onClick={notify}>Notify!</button>
+
+            <ToastContainer/>
 
             <button onClick={(e)=>{
                 console.log("clicked")

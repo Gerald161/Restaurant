@@ -8,7 +8,7 @@ import { faBars, faRightFromBracket, faGear, faCartShopping } from '@fortawesome
 import { usePathname } from 'next/navigation';
 import Image from 'next/image';
 import { useSelector, useDispatch } from 'react-redux';
-import { incrementByAmount, increment } from "../redux/counter";
+import { incrementByAmount } from "../redux/counter";
 
 export default function NavBar() {
   const pathName = usePathname();
@@ -18,6 +18,8 @@ export default function NavBar() {
   const [profileImageUrl, setProfileImageUrl] = useState("");
 
   const [optionsVisibility, setOptionsVisibility] = useState(false);
+
+  const [addedInitialOrderCount, setAddedInitialOrderCount] = useState(false);
 
   const count = useSelector((state) => state.counter.value);
 
@@ -37,25 +39,29 @@ export default function NavBar() {
 
     var data = await res.json();
 
-    dispatch(incrementByAmount(data.length))
+    dispatch(incrementByAmount(data.length));
+
+    setAddedInitialOrderCount(true)
   }
 
   useEffect(()=>{
     var username = localStorage.getItem("username");
 
-    var profile_image = localStorage.getItem("profile_image");
-
-    setProfileImageUrl(JSON.parse(profile_image)["profile_image"]);
-
     if(username !== null){
+      var profile_image = localStorage.getItem("profile_image");
+
+      setProfileImageUrl(JSON.parse(profile_image)["profile_image"]);
+
       setProfileTabVisibility(true);
 
       //Making sure the toggle of the visibility is always negative
       setOptionsVisibility(false);
 
-      getOrderCount().catch((err)=>{
-        console.log("could not fetch request")
-      });
+      if(!addedInitialOrderCount){
+        getOrderCount().catch((err)=>{
+          console.log("could not fetch request")
+        });
+      }
     }else{
       setProfileTabVisibility(false);
     }
@@ -68,6 +74,16 @@ export default function NavBar() {
     }else{
       setOptionsVisibility(true);
     }
+  }
+
+  function logout(){
+    localStorage.removeItem("username");
+
+    localStorage.removeItem("email");
+
+    localStorage.removeItem("profile_image");
+
+    window.location = window.location.href
   }
 
   return (
@@ -119,7 +135,7 @@ export default function NavBar() {
               </div>
               <div className={styles.option}>
                 <p className={styles.label}>Log out</p>
-                <FontAwesomeIcon icon={faRightFromBracket}/>
+                <FontAwesomeIcon onClick={()=>{logout()}} icon={faRightFromBracket}/>
               </div>
             </div>
           </div>
