@@ -101,7 +101,7 @@ export default function NavBar() {
           Diets
         </a>
         <Link href={
-          optionsVisibility == true ? "/upload" : "/login"
+          profileTabVisibility == true ? "/upload" : "/login"
           } className={styles.nav_link}>
           Upload
         </Link>
