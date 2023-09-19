@@ -21,7 +21,7 @@ export default function FilterResultsSection({data, slug}) {
                         <h4>{food["name"]}</h4>
                         
                         <div className={styles.bottom_section}>
-                            <h4><span>{food["price"]}</span></h4>
+                            <h4><span>{food["price"]}$</span></h4>
                             <FontAwesomeIcon icon={faPlus} />
                         </div>
                     </div>

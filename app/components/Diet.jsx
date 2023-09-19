@@ -38,27 +38,27 @@ export default function Diet() {
         {
             img: firstImage,
             style_class: "featured",
-            name: "Pizza"
+            name: "Noodles"
         },
         {
             img: secondImage,
             style_class: "",
-            name: "Shake"
+            name: "Cake"
         },
         {
             img: thirdImage,
             style_class: "featured_vertical",
-            name: "Cake"
+            name: "Rice"
         },
         {
             img: fourthImage,
             style_class: "",
-            name: "Rice"
+            name: "Pizza"
         },
         {
             img: fifthImage,
             style_class: "featured_horizontal",
-            name: "Noodles"
+            name: "Chocolate Cake"
         },
         {
             img: sixthImage,
@@ -68,7 +68,7 @@ export default function Diet() {
         {
             img: seventhImage,
             style_class: "featured_horizontal",
-            name: "Pizza"
+            name: "Ice cream"
         }
     ];
 

@@ -11,8 +11,11 @@ import thirdImage from "./icons/3.png";
 import fourthImage from "./icons/price.png";
 import fifthImage from "./icons/5.png";
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 
 export default function FilterOptionsSection() {
+  const router = useRouter();
+
   var images = [
       {
         img_src: firstImage,
@@ -43,23 +46,37 @@ export default function FilterOptionsSection() {
 
   const [searchResults, setSearchResults] = useState([]);
 
+  const [word, setWord] = useState("");
+
   const resetSearchBox = () => {
     setSearchResults([]);
   }
 
   async function getSearchSuggestion(e){
+    setWord(e.target.value);
+
     if(e.target.value.trim() !== ""){
       const res = await fetch(`${process.env.NEXT_PUBLIC_API}food/search/${e.target.value}`); 
 
       const data = await res.json();
 
       setSearchResults(data);
+    }else{
+      setSearchResults([]);
     }
+  }
+
+  function handleSubmit(e){
+    e.preventDefault();
+
+    router.refresh()
+
+    router.push(`/search/${word.replace(/ /g, "-")}`);
   }
 
   return (
     <div className={styles.filter_options_section}>
-        <form method="post">
+        <form method="post" onSubmit={(e)=>{handleSubmit(e)}}>
             <div className={styles.search_block}>
                 <input onChange={(e)=>{getSearchSuggestion(e)}} type="text" placeholder="Search..." id="search_box" name=""/>
 
@@ -71,7 +88,7 @@ export default function FilterOptionsSection() {
               }>
               {
                 searchResults.map((result,index)=>(
-                  <Link href={`/food/${result["slug"]}`} key={index}>{result["name"]}</Link>
+                  <Link href={`/search/${result["name"].toLowerCase()}`} key={index}>{result["name"]}</Link>
                 ))
               }
             </div>
