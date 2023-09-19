@@ -127,24 +127,28 @@ export default function FirstSection({data, slug}){
       <div className={styles.extra_info}>
       <ToastContainer/>
 
-        <p>{count}</p>
-
         <h3>{data.name}</h3>
 
-        <div className={styles.additional_images}>
-          {
-            allImages.map((image, index)=>(
-              <div key={index} 
-                onClick={(e)=>{slideImage(e, index)}}
-                className={styles.additional_image}>
-                <img className={index !== selectedIndex && styles.inactive}
-                 data-left={index * 70} data-left2={index * 100} 
-                 loading="lazy" src={`http://127.0.0.1:8000/media/${image}`} 
-                 alt="" />
-              </div>
-            ))
-          }
-        </div>
+        
+        {
+          allImages.length > 1 &&
+          <div className={
+            allImages.length > 2 ? styles.additional_images : styles.additional_images2
+          }>
+            {
+              allImages.map((image, index)=>(
+                <div key={index} 
+                  onClick={(e)=>{slideImage(e, index)}}
+                  className={styles.additional_image}>
+                  <img className={index !== selectedIndex && styles.inactive}
+                   data-left={index * 70} data-left2={index * 100} 
+                   loading="lazy" src={`http://127.0.0.1:8000/media/${image}`} 
+                   alt="" />
+                </div>
+              ))
+            }
+          </div>
+        }
 
         <div className={styles2.second_section}>
           <p><span className={styles2.price}>Price:</span><span>{data.price}</span>$</p>

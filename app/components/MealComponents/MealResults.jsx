@@ -5,8 +5,7 @@ import styles2 from "../../styles/mealtypeselectiontab.module.css";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faPencil } from '@fortawesome/free-solid-svg-icons';
-import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 
 export default function MealResults({data}){
@@ -15,6 +14,16 @@ export default function MealResults({data}){
     const mealChoices = ["Breakfast", "Lunch", "Supper", "Drinks"];
 
     const [selectedIndex, setSelectedIndex] = useState(0);
+
+    const [showEditButton, setShowEditButton] = useState(false);
+
+    useEffect(()=>{
+        var username = localStorage.getItem("username");
+
+        if(username !== null){
+            setShowEditButton(true);
+        }
+    }, [])
 
     async function changeMealCategory(meal, index){
         setSelectedIndex(index);
@@ -51,10 +60,13 @@ export default function MealResults({data}){
                         <h4>{food["name"]}</h4>
                         
                         <div className={styles.bottom_section}>
-                            <h4><span>{food["price"]} $</span></h4>
-                            <Link href={`/edit/${food.slug}`}>
-                                <FontAwesomeIcon icon={faPencil} />
-                            </Link>
+                            <h4><span>{food["price"]}$</span></h4>
+                            {
+                                showEditButton == true &&
+                                <Link href={`/edit/${food.slug}`}>
+                                    <FontAwesomeIcon icon={faPencil} />
+                                 </Link>
+                            }
                         </div>
                     </div>
                 })

@@ -100,7 +100,9 @@ export default function NavBar() {
         <a href="#diets" className={styles.nav_link}>
           Diets
         </a>
-        <Link href="/upload" className={styles.nav_link}>
+        <Link href={
+          optionsVisibility == true ? "/upload" : "/login"
+          } className={styles.nav_link}>
           Upload
         </Link>
       </div>

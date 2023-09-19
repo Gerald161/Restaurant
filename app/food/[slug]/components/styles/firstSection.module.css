@@ -38,13 +38,22 @@
     padding: 1px 0 15px 0;
 }
 
-.first_section .extra_info .additional_images .additional_image{
+.first_section .extra_info .additional_images2{
+    display: grid;
+    gap: 1px;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 200px;
+    grid-auto-flow: dense;
+    padding: 1px 0 15px 0;
+}
+
+.first_section .extra_info .additional_images .additional_image, .first_section .extra_info .additional_images2 .additional_image{
     position: relative;
     transition: all 0.8s;
     cursor: pointer;
 }
 
-.first_section .extra_info .additional_images .additional_image img{
+.first_section .extra_info .additional_images .additional_image img, .first_section .extra_info .additional_images2 .additional_image img{
     position: absolute;
     object-fit: cover;
     width: 100%;
@@ -54,18 +63,18 @@
     background: url("/placeholder.png") no-repeat center/cover;
 }
 
-.first_section .extra_info .additional_images .additional_image:hover{
+.first_section .extra_info .additional_images .additional_image:hover, .first_section .extra_info .additional_images2 .additional_image:hover{
     opacity: 1;
     transform: scale(1.1);
     z-index: 2;
     box-shadow: 0 5px 20px rgba(0,0,0, 1);
 }
 
-.first_section .extra_info .additional_images .additional_image:hover img{
+.first_section .extra_info .additional_images .additional_image:hover img, .first_section .extra_info .additional_images2 .additional_image:hover img{
     opacity: 1;
 }
 
-.first_section .extra_info .additional_images .inactive{
+.first_section .extra_info .additional_images .inactive, .first_section .extra_info .additional_images2 .inactive{
     opacity: 0.6;
 }
 
@@ -85,6 +94,11 @@
 
     .first_section .extra_info .additional_images{
         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        grid-auto-rows: 150px;
+    }
+
+    .first_section .extra_info .additional_images2{
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         grid-auto-rows: 150px;
     }
 }
