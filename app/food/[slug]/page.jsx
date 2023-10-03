@@ -15,6 +15,17 @@ async function getDishData(slug){
   return res.json();
 }
 
+// export const metadata = {
+//   title: 'Product Page',
+// description: 'This is the product page',
+// }
+
+export async function generateMetadata({params}){
+  return {
+    title: params.slug.split("-")[0]
+  }
+}
+
 export default async function FoodPage({params}) {
     const slug = params.slug;
 
