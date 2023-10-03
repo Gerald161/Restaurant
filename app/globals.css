@@ -5,6 +5,10 @@
     scroll-behavior: smooth;
 }
 
+body{
+    overflow-x: hidden;
+}
+
 nav{
     position: absolute;
     top: 0;
