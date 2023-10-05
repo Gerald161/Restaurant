@@ -138,13 +138,17 @@
     right: 2px;
     bottom: 85px;
     margin-left: auto;
-	min-width: 300px;
+	width: 330px;
 	border: 1px solid #ddd;
 	box-shadow: 1px 3px 5px rgba(0,0,0,0.05);
 	border-radius: 2px;
     z-index: 20000;
     background-color: white;
     display: none;
+}
+
+.no_question{
+    margin: 20px;
 }
 
 .questionSection h2{
@@ -163,18 +167,23 @@
 
 .questionSection .message_content_section .chat_window{
     flex: 9;
-    overflow: auto;
+    max-height: 450px;
+    overflow-y: auto;
     background: #f9f9f9;
 }
 
 .output .profile_container{
     display: flex;
-    align-items: center;
-    gap: 1px;
+    gap: 2px;
     padding: 14px 0px;
     margin: 0 20px;
     border-bottom: 1px solid #e9e9e9;
     color: #555;
+}
+
+.response{
+    width: 80%;
+    overflow-wrap: break-word;
 }
 
 .output .profile_pic{
